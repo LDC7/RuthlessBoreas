@@ -1,9 +1,4 @@
 .article {
-    border-style: solid;
-    border-width: 2px;
-    border-color: rgb(0, 0, 0);
-    flex-direction: row;
-    height: 50px;
 }
 
 .article-imgpart {
@@ -12,6 +7,7 @@
     padding: 0;
     height: 50px;
     width: 50px;
+    display: block;
 }
 
 .article-image {
@@ -24,6 +20,9 @@
 
 .article-textpart {
     position: relative;
-    font-size: 18pt;
     text-align: center;
+}
+
+.article-link-img {
+    height: 25px;
 }

@@ -4,6 +4,8 @@ import Character from '../models/character';
 import Utils from '../utils/utils'
 
 require('./article.css');
+const rioLogo = require('../images/favicon.png');
+const logLogo = require('../images/wlogsicon.png');
 
 interface IProps {
   character: Character;
@@ -38,6 +40,16 @@ export default class Article extends React.Component<IProps, IState> {
     </td>;
   }
 
+  private renderLinks(): React.ReactNode {
+    return <td className='article-textpart'>
+      <span>
+        <a href={this.props.character.Profile}><img className='article-link-img' src={rioLogo} /></a>
+        <span style={{'width': '10px'}}/>
+        <a><img className='article-link-img' src={logLogo} /></a>
+      </span>
+    </td>
+  }
+
   public render(): React.ReactNode {
     const char = this.props.character;
     const color = {
@@ -54,6 +66,7 @@ export default class Article extends React.Component<IProps, IState> {
       {Utils.canHeal(char.Class) ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
+      {this.renderLinks()}
     </tr>;
   }
 }

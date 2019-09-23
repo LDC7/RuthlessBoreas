@@ -6,6 +6,7 @@ export default class Character {
   public Race: string;
   public Class: string;
   public Portrait: string;
+  public Profile: string;
   public ItemLevel: number;
   public ScoreAll: number;
   public ScoreDps: number;
@@ -23,6 +24,7 @@ export default class Character {
     this.Race = rioChar.Race;
     this.Class = rioChar.Class;
     this.Portrait = rioChar.Thumbnail_url;
+    this.Profile = rioChar.Profile_url;
     this.ItemLevel = rioChar.Gear_item_level_total;
     this.ScoreAll = rioChar.Mythic_plus_score_all;
     this.ScoreDps = rioChar.Mythic_plus_score_dps;
@@ -49,5 +51,21 @@ export default class Character {
       return -1;
 
     return 0;
+  }
+
+  public static sortingKeyProgressTank(f: Character, s: Character): number {
+    return f.ScoreTank - s.ScoreTank;
+  }
+
+  public static sortingKeyProgressHeal(f: Character, s: Character): number {
+    return f.ScoreHealer - s.ScoreHealer;
+  }
+
+  public static sortingKeyProgressDps(f: Character, s: Character): number {
+    return f.ScoreDps - s.ScoreDps;
+  }
+
+  public static sortingKeyProgressAll(f: Character, s: Character): number {
+    return f.ScoreAll - s.ScoreAll;
   }
 }

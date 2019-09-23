@@ -22,11 +22,13 @@ export default class DataLoader {
 
   private static RawAnyDataToRioChar(data: any): RioCharacter {
     const char = new RioCharacter();
+    console.log(data);
     const raidName = require('./raidData.json').lastRaid;
 
     char.Name = data.name;
     char.Class = data.class;
     char.Thumbnail_url = data.thumbnail_url;
+    char.Profile_url = data.profile_url;
     char.Gear_item_level_total = data.gear.item_level_total;
     const score = data.mythic_plus_scores_by_season[0].scores;
     char.Mythic_plus_score_all = score.all;

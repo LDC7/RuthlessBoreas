@@ -1,6 +1,6 @@
 html {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 12px;
+    font-size: 16px;
 }
   
 body {
@@ -28,6 +28,5 @@ body {
     background-size: cover;
     background-position: center center;
     white-space: nowrap;
-    overflow: auto;
     padding-top: 50px;
 }

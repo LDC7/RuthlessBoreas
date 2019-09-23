@@ -1,9 +1,49 @@
 #app {
     width: 1280px;
+}
+
+#app-header {
+    display: flex;
+    height: 100px;
+    width: 1280px;
+    background-size: cover;
+    background-image: url('../images/alliancebanner1.jpg');
+    color: #69f;
+    font-size: 36px;
+}
+
+#app-header h3 {
+    align-self: center;
+    width: 1280px;
+    margin-left: 40px;
+}
+
+#app-table {
+    width: 1280px;
     border-collapse: collapse;
-    border: 4;
+    border: 4px;
 }
 
 #table-header {
-    
+    height: 50px;
+    background-color: rgb(0, 0, 0);
+    padding: 0;
+}
+
+#table-header th {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+}
+
+#table-header img {
+    height: 50px;
+    width: 50px;
+}
+
+tr {
+    height: 50px;    
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(0, 0, 0);
 }
