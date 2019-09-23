@@ -1,4 +1,9 @@
 #app {
-    width: 780px;
-    overflow: auto;
+    width: 1280px;
+    border-collapse: collapse;
+    border: 4;
+}
+
+#table-header {
+    
 }

@@ -1,63 +1,75 @@
-import Char from './char';
+import CharacterIdentity from '../models/characterIdentity';
+import RioCharacter from '../models/rioCharacter';
+import Character from '../models/character';
 
 export default class DataLoader {
 
-  private static LoadChars(): Array<Char> {    
-    const serializedData = require('./data.json') as Array<any>;
-    const chars = new Array<Char>();
+  private static LoadCharsIdentity(): Array<CharacterIdentity> {    
+    const serializedData = require('./charsData.json') as Array<any>;
+    const chars = new Array<CharacterIdentity>();
 
-    for(let i = 0; i < serializedData.length; i++) {
-      chars[i] = new Char();
-      chars[i].Name = serializedData[i].name;
-      chars[i].Realm = serializedData[i].realm;
-      chars[i].Region = serializedData[i].region;
-    }
+    serializedData.forEach((val) => {
+      const char = new CharacterIdentity();
+      char.Name = val.name;
+      char.Realm = val.realm;
+      char.Region = val.region;
+
+      chars.push(char);
+    });
 
     return chars;
   }
 
-  private static getRequest(url: string): Promise<any> {
-    const request = new XMLHttpRequest();
-    request.open('GET', url);
-    request.send();
-    return request.response;
+  private static RawAnyDataToRioChar(data: any): RioCharacter {
+    const char = new RioCharacter();
+    const raidName = require('./raidData.json').lastRaid;
+
+    char.Name = data.name;
+    char.Class = data.class;
+    char.Thumbnail_url = data.thumbnail_url;
+    char.Gear_item_level_total = data.gear.item_level_total;
+    const score = data.mythic_plus_scores_by_season[0].scores;
+    char.Mythic_plus_score_all = score.all;
+    char.Mythic_plus_score_dps = score.dps;
+    char.Mythic_plus_score_healer = score.healer;
+    char.Mythic_plus_score_tank = score.tank;
+    char.Raid_progression_summary = data.raid_progression[raidName].summary;
+    return char;
   }
 
-  /*private static getRequest2(url: string): Promise<any> {
-    return new Promise<any>(
-      function (resolve, reject) {
-        const request = new XMLHttpRequest();
-        request.onload = function () {
-          if (this.status === 200) {
-            resolve(this.response);
-          } else {
-            reject(new Error(this.statusText));
-          }
-        };
-        request.onerror = function () {
-          reject(new Error('XMLHttpRequest Error: ' + this.statusText));
-        };
+  private static async getRequest(url: string): Promise<any> {
+    return new Promise((resolve, reject) =>{
+      const request = new XMLHttpRequest();
+      request.onload = function () {
+        if (this.status === 200) {
+          resolve(JSON.parse(this.responseText));
+        } else {
+          reject(new Error(this.statusText));
+        }
+      };
+      request.onerror = function () {
+        reject(new Error('XMLHttpRequest Error: ' + this.statusText));
+      };
       request.open('GET', url);
       request.send();
-      }
-    );
-  }*/
-
-  private static GetCharRaiderIoUrl(char: Char): string {
-    console.log(char);
-    const name = encodeURIComponent(char.Name);
-    console.log(char.Name);
-    console.log(name);
-    return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}`;
+    });
   }
 
-  public static GetCharacters(): Array<Char> {
-    const chars = DataLoader.LoadChars();
-    console.log(chars);
+  private static GetCharRaiderIoUrl(char: CharacterIdentity): string {
+    const name = encodeURIComponent(char.Name);
+    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent';
+    return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
+  }
 
-    console.error(DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(chars[0])));
+  public static async GetCharacters(): Promise<Array<Character>> {
+    const chars = DataLoader.LoadCharsIdentity();
+    const data = new Array<Character>();
     
+    for(let i = 0; i < chars.length; i++) {
+      const rioChar = DataLoader.RawAnyDataToRioChar(await DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(chars[i])));
+      data.push(new Character(i + 1, rioChar));
+    }
 
-    return chars;
+    return new Promise<Array<Character>>((resolve) => resolve(data));
   }
 }

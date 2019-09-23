@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Менелос",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Айронделль",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Антоэн",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Данамеби",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Мадейв",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Манатель",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Мозгоёлка",
+    "realm": "deepholm",
+    "region": "eu"
+  },
+  {
+    "name": "Невека",
+    "realm": "azuregos",
+    "region": "eu"
+  },
+  {
+    "name": "Пивчаанский",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Раллин",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Сетарра",
+    "realm": "gordunni",
+    "region": "eu"
+  },
+  {
+    "name": "Хейрих",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Элайана",
+    "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Юнэса",
+    "realm": "gordunni",
+    "region": "eu"
+  }
+]
