@@ -20,6 +20,8 @@ interface IState {
 }
 
 export default class App extends React.Component<IProps, IState> {
+  private sortColumnNumber: number | null = null;
+  private ascSorting: boolean = true;
 
   constructor(props: IProps) {
     super(props);
@@ -29,7 +31,7 @@ export default class App extends React.Component<IProps, IState> {
     };
     DataLoader.GetCharacters().then((data) => {
       this.setState({
-        data: data.sort((a, b) => Character.sortingKeyProgressAll(a, b) * -1),
+        data: data,
         loaded: true
       });
     });
@@ -38,21 +40,46 @@ export default class App extends React.Component<IProps, IState> {
   private renderHeader(): React.ReactNode {
     return <div id={'app-header'}>
       <h3>Безжалостный Борей</h3>
-    </div>
+    </div>;
+  }
+
+  private renderTableHeaderColumn(index: number, child: React.ReactNode, onClick?: () => void): React.ReactNode {
+    return <th className={index == this.sortColumnNumber ? 'table-header-sort-column-selected'
+      : 'table-header-sort-column'} onClick={onClick}><div className='table-header-sort-column-content'>{child}</div></th>;
   }
 
   private renderTableHeader(): React.ReactNode {
     return <tr id='table-header'>
-      <th id='table-header-img-column'></th>
-      <th>Name</th>
-      <th>ILvL</th>
-      <th>Raid</th>
-      <th><img src={role_tank} /></th>
-      <th><img src={role_healer} /></th>
-      <th><img src={role_dps} /></th>
-      <th><img src={role_all} /></th>
       <th></th>
-    </tr>
+      {this.renderTableHeaderColumn(1, 'Name', () => this.onTableHeaderClick(1, Character.comparingName))}
+      {this.renderTableHeaderColumn(2, 'ILvL', () => this.onTableHeaderClick(2, Character.comparingILvl))}
+      {this.renderTableHeaderColumn(3, 'Raid', () => this.onTableHeaderClick(3, Character.comparingRaidProgress))}
+      {this.renderTableHeaderColumn(4, <img title='Tank Rio' src={role_tank} />, () => this.onTableHeaderClick(4, Character.comparingKeyProgressTank))}
+      {this.renderTableHeaderColumn(5, <img title='Heal Rio' src={role_healer} />, () => this.onTableHeaderClick(5, Character.comparingKeyProgressHeal))}
+      {this.renderTableHeaderColumn(6, <img title='Dps Rio' src={role_dps} />, () => this.onTableHeaderClick(6, Character.comparingKeyProgressDps))}
+      {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}
+      <th></th>
+    </tr>;
+  }
+
+  private onTableHeaderClick(column: number, sortFunc: ((f: Character, s: Character) => number)) {
+    if (this.state.data != null) {
+      if (column == this.sortColumnNumber)
+        this.ascSorting = !this.ascSorting;
+      else
+        this.sortColumnNumber = column;
+      
+      this.setState({
+        data: this.state.data.sort((a, b) => sortFunc(a, b) * (this.ascSorting ? 1 : -1))
+      });
+    }
+  }
+
+  private renderFooter(): React.ReactNode {
+    return <div id='footer-message'>
+      <span>Если кого-то не хватает - напишите Менелосу</span>
+      <span>Предложения по улучшению - тоже к Менелосу</span>
+    </div>;
   }
 
   public render(): React.ReactNode {    
@@ -69,6 +96,7 @@ export default class App extends React.Component<IProps, IState> {
           return <Article key={char.Id} character={char} even={evenFlag} />
         })}
       </table>
+      {this.renderFooter()}
     </div>;
   }
 }

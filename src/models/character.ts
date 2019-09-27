@@ -1,5 +1,7 @@
 import RioCharacter from './rioCharacter';
 
+import Utils from '../utils/utils'
+
 export default class Character {
   public Id: number;
   public Name: string;
@@ -10,8 +12,8 @@ export default class Character {
   public ItemLevel: number;
   public ScoreAll: number;
   public ScoreDps: number;
-  public ScoreHealer: number;
-  public ScoreTank: number;
+  public ScoreHealer: number | null;
+  public ScoreTank: number | null;
   public RaidProgress: string;
 
   constructor(id: number, rioChar: RioCharacter) {
@@ -28,12 +30,20 @@ export default class Character {
     this.ItemLevel = rioChar.Gear_item_level_total;
     this.ScoreAll = rioChar.Mythic_plus_score_all;
     this.ScoreDps = rioChar.Mythic_plus_score_dps;
-    this.ScoreHealer = rioChar.Mythic_plus_score_healer;
-    this.ScoreTank = rioChar.Mythic_plus_score_tank;
+    this.ScoreHealer = Utils.canHeal(rioChar.Class) ? rioChar.Mythic_plus_score_healer : null;
+    this.ScoreTank = Utils.canTank(rioChar.Class) ? rioChar.Mythic_plus_score_tank : null;
     this.RaidProgress = rioChar.Raid_progression_summary;
   }
 
-  public static sortingRaidProgress(f: Character, s: Character): number {
+  public static comparingName(f: Character, s: Character): number {
+    return f.Name == s.Name ? 0 : (f.Name > s.Name ? 1 : -1);
+  }
+
+  public static comparingILvl(f: Character, s: Character): number {
+    return f.ItemLevel - s.ItemLevel;
+  }
+
+  public static comparingRaidProgress(f: Character, s: Character): number {
     const fDifficult = f.RaidProgress[f.RaidProgress.length - 1];
     const sDifficult = s.RaidProgress[s.RaidProgress.length - 1];
 
@@ -53,19 +63,37 @@ export default class Character {
     return 0;
   }
 
-  public static sortingKeyProgressTank(f: Character, s: Character): number {
+  public static comparingKeyProgressTank(f: Character, s: Character): number {
+    if (f.ScoreTank == null && s.ScoreTank == null)
+      return 0;
+
+    if (f.ScoreTank == null)
+      return -1;
+
+    if (s.ScoreTank == null)
+      return 1;
+
     return f.ScoreTank - s.ScoreTank;
   }
 
-  public static sortingKeyProgressHeal(f: Character, s: Character): number {
+  public static comparingKeyProgressHeal(f: Character, s: Character): number {
+    if (f.ScoreHealer == null && s.ScoreHealer == null)
+      return 0;
+
+    if (f.ScoreHealer == null)
+      return -1;
+
+    if (s.ScoreHealer == null)
+      return 1;
+
     return f.ScoreHealer - s.ScoreHealer;
   }
 
-  public static sortingKeyProgressDps(f: Character, s: Character): number {
+  public static comparingKeyProgressDps(f: Character, s: Character): number {
     return f.ScoreDps - s.ScoreDps;
   }
 
-  public static sortingKeyProgressAll(f: Character, s: Character): number {
+  public static comparingKeyProgressAll(f: Character, s: Character): number {
     return f.ScoreAll - s.ScoreAll;
   }
 }

@@ -43,8 +43,7 @@ export default class Article extends React.Component<IProps, IState> {
   private renderLinks(): React.ReactNode {
     return <td className='article-textpart'>
       <span>
-        <a href={this.props.character.Profile}><img className='article-link-img' src={rioLogo} /></a>
-        <span style={{'width': '10px'}}/>
+        <a target="_blank" href={this.props.character.Profile}><img className='article-link-img' src={rioLogo} /></a>
         <a><img className='article-link-img' src={logLogo} /></a>
       </span>
     </td>
@@ -62,8 +61,8 @@ export default class Article extends React.Component<IProps, IState> {
       {this.renderText(char.Name, Utils.getColorClass(char.Class))}
       {this.renderText(char.ItemLevel.toString())}
       {this.renderText(char.RaidProgress, Utils.getColorRaidProgress(char.RaidProgress))}
-      {Utils.canTank(char.Class) ? this.renderText(char.ScoreTank.toString(), Utils.getColorKeyProgress(char.ScoreTank)) : this.renderEmptyCell()}
-      {Utils.canHeal(char.Class) ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
+      {char.ScoreTank != null ? this.renderText(char.ScoreTank.toString(), Utils.getColorKeyProgress(char.ScoreTank)) : this.renderEmptyCell()}
+      {char.ScoreHealer != null ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
       {this.renderLinks()}

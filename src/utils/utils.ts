@@ -1,5 +1,3 @@
-
-
 export default class Utils {
   private static tankClasses = ['Death Knight', 'Demon Hunter', 'Druid', 'Monk', 'Paladin', 'Warrior'];
   private static healClasses = ['Druid', 'Monk', 'Paladin', 'Priest', 'Shaman'];
