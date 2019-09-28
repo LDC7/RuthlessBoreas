@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Article from './article';
-import LoadingSpiner from './loadingSpiner';
+import Article from './article'
+import LoadingSpiner from './loadingSpiner'
 
 import DataLoader from '../data/dataLoader';
 import Character from '../models/character';
@@ -11,7 +11,6 @@ const role_tank = require('../images/role_tank.webp');
 const role_healer = require('../images/role_healer.webp');
 const role_dps = require('../images/role_dps.webp');
 const role_all = require('../images/flag.webp');
-const background_music = require('../background.mp3');
 
 interface IProps { }
 
@@ -24,7 +23,7 @@ export default class App extends React.Component<IProps, IState> {
   private sortColumnNumber: number | null = null;
   private ascSorting: boolean = true;
 
-  public constructor(props: IProps) {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       data: null,
@@ -36,11 +35,6 @@ export default class App extends React.Component<IProps, IState> {
         loaded: true
       });
     });
-  }
-
-  private changeVolume(e: React.SyntheticEvent<HTMLAudioElement, Event>) {
-    const audio: HTMLAudioElement = e.target as HTMLAudioElement; //document.getElementById('background-music');
-    audio.volume = 0.1;
   }
 
   private renderHeader(): React.ReactNode {
@@ -91,10 +85,9 @@ export default class App extends React.Component<IProps, IState> {
   public render(): React.ReactNode {    
     if (!this.state.loaded || this.state.data == null || this.state.data.length == 0)
       return <LoadingSpiner />;
-
+    
     let evenFlag = false;
     return <div id='app'>
-      <audio id='background-music' src={background_music} autoPlay={true} loop={true} onLoad={this.changeVolume} />
       {this.renderHeader()}
       <table id='app-table'>
         {this.renderTableHeader()}

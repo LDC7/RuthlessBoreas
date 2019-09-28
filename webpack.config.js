@@ -21,7 +21,7 @@ const rules = [
     ]
   },
   {
-    test: /\.(png|jpe?g|gif|ico|svg|webp|mp3|txt)$/,
+    test: /\.(png|jpe?g|gif|ico|svg|webp|txt)$/,
     use: {
       loader: "file-loader",
       options: {

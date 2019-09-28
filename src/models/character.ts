@@ -1,6 +1,6 @@
 import RioCharacter from './rioCharacter';
 
-import Utils from '../utils/utils';
+import Utils from '../utils/utils'
 
 export default class Character {
   public Id: number;
@@ -17,7 +17,7 @@ export default class Character {
   public RaidProgress: string;
   public WlogsProfile: string;
 
-  public constructor(id: number, rioChar: RioCharacter, wlogsProfile: string) {
+  constructor(id: number, rioChar: RioCharacter, wlogsProfile: string) {
     this.Id = id;
     this.fromRio(rioChar);
     this.WlogsProfile = wlogsProfile;

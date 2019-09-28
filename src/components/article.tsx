@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Character from '../models/character';
-import Utils from '../utils/utils';
+import Utils from '../utils/utils'
 
 require('./article.css');
 const rioLogo = require('../images/favicon.png');
