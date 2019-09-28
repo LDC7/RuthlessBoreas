@@ -22,7 +22,7 @@ export default class RioCharacter {
   public Mythic_plus_score_tank: number;
   public Raid_progression_summary: string;
   
-  constructor(data: any) {
+  public constructor(data: any) {
     this.Name = data.name;
     this.Class = data.class;
     this.Thumbnail_url = data.thumbnail_url;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Article from './article'
-import LoadingSpiner from './loadingSpiner'
+import Article from './article';
+import LoadingSpiner from './loadingSpiner';
 
 import DataLoader from '../data/dataLoader';
 import Character from '../models/character';
@@ -23,7 +23,7 @@ export default class App extends React.Component<IProps, IState> {
   private sortColumnNumber: number | null = null;
   private ascSorting: boolean = true;
 
-  constructor(props: IProps) {
+  public constructor(props: IProps) {
     super(props);
     this.state = {
       data: null,
