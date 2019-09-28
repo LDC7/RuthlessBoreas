@@ -8,7 +8,7 @@ export default class Character {
   public Race: string;
   public Class: string;
   public Portrait: string;
-  public RioProfile: string;
+  public Profile: string;
   public ItemLevel: number;
   public ScoreAll: number;
   public ScoreDps: number;
@@ -26,7 +26,7 @@ export default class Character {
     this.Race = rioChar.Race;
     this.Class = rioChar.Class;
     this.Portrait = rioChar.Thumbnail_url;
-    this.RioProfile = rioChar.Profile_url;
+    this.Profile = rioChar.Profile_url;
     this.ItemLevel = rioChar.Gear_item_level_total;
     this.ScoreAll = rioChar.Mythic_plus_score_all;
     this.ScoreDps = rioChar.Mythic_plus_score_dps;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import Article from './article';
+import Article from './article'
+import LoadingSpiner from './loadingSpiner'
 
 import DataLoader from '../data/dataLoader';
 import Character from '../models/character';
@@ -14,27 +15,26 @@ const role_all = require('../images/flag.webp');
 interface IProps { }
 
 interface IState {
-  data: Array<Promise<Character>>;
-  isLoaded: boolean;
+  data: Array<Character> | null;
+  loaded: boolean;
 }
 
 export default class App extends React.Component<IProps, IState> {
   private sortColumnNumber: number | null = null;
   private ascSorting: boolean = true;
-  private loadedRows: number = 0;
 
   constructor(props: IProps) {
     super(props);
     this.state = {
-      data: DataLoader.GetCharacters(),
-      isLoaded: false
+      data: null,
+      loaded: false
     };
-  }
-
-  private rowLoadedCallback() {
-    this.loadedRows++;
-    if (this.state.data.length == this.loadedRows)
-      this.setState({isLoaded: true});
+    DataLoader.GetCharacters().then((data) => {
+      this.setState({
+        data: data,
+        loaded: true
+      });
+    });
   }
 
   private renderHeader(): React.ReactNode {
@@ -63,14 +63,14 @@ export default class App extends React.Component<IProps, IState> {
   }
 
   private onTableHeaderClick(column: number, sortFunc: ((f: Character, s: Character) => number)) {
-    if (this.state.isLoaded) {
+    if (this.state.data != null) {
       if (column == this.sortColumnNumber)
         this.ascSorting = !this.ascSorting;
       else
         this.sortColumnNumber = column;
       
       this.setState({
-        data: this.state.data.sort((a: any, b: any) => sortFunc(a, b) * (this.ascSorting ? 1 : -1))
+        data: this.state.data.sort((a, b) => sortFunc(a, b) * (this.ascSorting ? 1 : -1))
       });
     }
   }
@@ -82,7 +82,10 @@ export default class App extends React.Component<IProps, IState> {
     </div>;
   }
 
-  public render(): React.ReactNode {
+  public render(): React.ReactNode {    
+    if (!this.state.loaded || this.state.data == null || this.state.data.length == 0)
+      return <LoadingSpiner />;
+    
     let evenFlag = false;
     return <div id='app'>
       {this.renderHeader()}
@@ -90,7 +93,7 @@ export default class App extends React.Component<IProps, IState> {
         {this.renderTableHeader()}
         {this.state.data.map((char) => {
           evenFlag = !evenFlag;
-          return <Article character={char} loadCallback={this.rowLoadedCallback.bind(this)} even={evenFlag} />
+          return <Article key={char.Id} character={char} even={evenFlag} />
         })}
       </table>
       {this.renderFooter()}
