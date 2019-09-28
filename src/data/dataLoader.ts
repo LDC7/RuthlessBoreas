@@ -44,20 +44,18 @@ export default class DataLoader {
     return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
   }
 
-  public static async GetCharacters(): Promise<Array<Character>> {
+  public static GetCharacters(): Array<Promise<Character>> {
     const chars = DataLoader.LoadCharsIdentity();
-    const promises = new Array<Promise<any>>();
-    const data = new Array<Character>();
-
-    chars.forEach((val) => {
-      promises.push(DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(val)));
-    });
+    const data = new Array<Promise<Character>>(chars.length);
 
     for(let i = 0; i < chars.length; i++) {
-      const rioChar = new RioCharacter(await promises[i]);
-      data.push(new Character(i + 1, rioChar));
+      data.push(new Promise((resolve) => {
+        DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(chars[i])).then((char) => {
+          resolve(new Character(i + 1, new RioCharacter(char)));
+        })
+      }));
     }
 
-    return new Promise<Array<Character>>((resolve) => resolve(data));
+    return data;
   }
 }
