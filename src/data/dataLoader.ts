@@ -3,6 +3,7 @@ import RioCharacter from '../models/rioCharacter';
 import Character from '../models/character';
 
 export default class DataLoader {
+  private static serversTranslation: any = require('./ruServers.json');
 
   private static LoadCharsIdentity(): Array<CharacterIdentity> {    
     const serializedData = require('./charsData.json') as Array<any>;
@@ -44,6 +45,13 @@ export default class DataLoader {
     return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
   }
 
+  private static GetCharWlogsProfileUrl(char: CharacterIdentity): string {
+    const name = encodeURIComponent(char.Name);
+    const server = encodeURIComponent(DataLoader.serversTranslation[char.Realm]);
+
+    return `https://www.warcraftlogs.com/character/${char.Region}/${server}/${name}`;
+  }
+
   public static async GetCharacters(): Promise<Array<Character>> {
     const chars = DataLoader.LoadCharsIdentity();
     const promises = new Array<Promise<any>>();
@@ -55,7 +63,7 @@ export default class DataLoader {
 
     for(let i = 0; i < chars.length; i++) {
       const rioChar = new RioCharacter(await promises[i]);
-      data.push(new Character(i + 1, rioChar));
+      data.push(new Character(i + 1, rioChar, DataLoader.GetCharWlogsProfileUrl(chars[i])));
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));

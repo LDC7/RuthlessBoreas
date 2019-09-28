@@ -23,6 +23,7 @@
     width: 1280px;
     border-collapse: collapse;
     border: 4px;
+    table-layout: fixed;
 }
 
 #table-header {

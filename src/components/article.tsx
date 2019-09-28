@@ -43,8 +43,8 @@ export default class Article extends React.Component<IProps, IState> {
   private renderLinks(): React.ReactNode {
     return <td className='article-textpart'>
       <span>
-        <a target="_blank" href={this.props.character.Profile}><img className='article-link-img' src={rioLogo} /></a>
-        <a><img className='article-link-img' src={logLogo} /></a>
+        <a target="_blank" href={this.props.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
+        <a target="_blank" href={this.props.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
       </span>
     </td>
   }
@@ -54,9 +54,8 @@ export default class Article extends React.Component<IProps, IState> {
     const color = {
       'background-color': this.props.even ? '#353535' : '#2b2b2b'
     } as React.CSSProperties;
-
-    console.log(this.props.character);
-    return <tr className='article' style={color}>
+    
+    return <tr style={color}>
       {this.renderImage()}
       {this.renderText(char.Name, Utils.getColorClass(char.Class))}
       {this.renderText(char.ItemLevel.toString())}

@@ -8,17 +8,19 @@ export default class Character {
   public Race: string;
   public Class: string;
   public Portrait: string;
-  public Profile: string;
+  public RioProfile: string;
   public ItemLevel: number;
   public ScoreAll: number;
   public ScoreDps: number;
   public ScoreHealer: number | null;
   public ScoreTank: number | null;
   public RaidProgress: string;
+  public WlogsProfile: string;
 
-  constructor(id: number, rioChar: RioCharacter) {
+  constructor(id: number, rioChar: RioCharacter, wlogsProfile: string) {
     this.Id = id;
     this.fromRio(rioChar);
+    this.WlogsProfile = wlogsProfile;
   }
 
   private fromRio(rioChar: RioCharacter) {        
@@ -26,7 +28,7 @@ export default class Character {
     this.Race = rioChar.Race;
     this.Class = rioChar.Class;
     this.Portrait = rioChar.Thumbnail_url;
-    this.Profile = rioChar.Profile_url;
+    this.RioProfile = rioChar.Profile_url;
     this.ItemLevel = rioChar.Gear_item_level_total;
     this.ScoreAll = rioChar.Mythic_plus_score_all;
     this.ScoreDps = rioChar.Mythic_plus_score_dps;
