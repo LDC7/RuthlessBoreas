@@ -1,5 +1,3 @@
-import CharacterIdentity from './characterIdentity';
-
 const raidName = require('../data/raidData.json').lastRaid;
 
 export default class RioCharacter {
@@ -36,11 +34,5 @@ export default class RioCharacter {
     this.Mythic_plus_score_healer = score.healer;
     this.Mythic_plus_score_tank = score.tank;
     this.Raid_progression_summary = data.raid_progression[raidName].summary;
-  }
-
-  public static getCharRaiderIoUrl(char: CharacterIdentity): string {
-    const name = encodeURIComponent(char.Name);
-    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent';
-    return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
   }
 }

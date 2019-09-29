@@ -1,10 +1,6 @@
-const keyScoreData = require('../data/keyData.json');
-
 export default class Utils {
   private static tankClasses = ['Death Knight', 'Demon Hunter', 'Druid', 'Monk', 'Paladin', 'Warrior'];
   private static healClasses = ['Druid', 'Monk', 'Paladin', 'Priest', 'Shaman'];
-  private static epicKeyScore = keyScoreData.epicKeyScore;
-  private static rareKeyScore = keyScoreData.rareKeyScore;
   
   public static getColorClass(className: string): string {
     switch(className) {
@@ -74,36 +70,12 @@ export default class Utils {
     if (score == 0)
       return null;
 
-    if (score >= Utils.epicKeyScore)
+    if (score >= 1000)
       return Utils.getColorEpic();
 
-    if (score >= Utils.rareKeyScore)
+    if (score >= 500)
       return Utils.getColorRare();
 
     return Utils.getColorUncommon();
-  }
-
-  public static getPercentageColor(percent: number) {
-    if (percent >= 80)
-      return Utils.getColorEpic();
-
-    if (percent >= 50)
-      return Utils.getColorRare();
-
-    return Utils.getColorUncommon();
-  }
-
-  public static groupBy(list: Array<any>, keyGetter: (item: any) => any): Map<any, any> {
-    const map = new Map();
-    list.forEach((item: any) => {
-      const key = keyGetter(item);
-      const collection = map.get(key);
-      if (!collection) {
-        map.set(key, [item]);
-      } else {
-        collection.push(item);
-      }
-    });
-    return map;
   }
 }

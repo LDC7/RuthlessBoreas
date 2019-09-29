@@ -29,7 +29,7 @@ export default class App extends React.Component<IProps, IState> {
       data: null,
       loaded: false
     };
-    DataLoader.getCharacters().then((data) => {
+    DataLoader.GetCharacters().then((data) => {
       this.setState({
         data: data,
         loaded: true

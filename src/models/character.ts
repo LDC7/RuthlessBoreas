@@ -1,5 +1,4 @@
 import RioCharacter from './rioCharacter';
-import WlogsCharacter from './wlogsCharacter';
 
 import Utils from '../utils/utils';
 
@@ -17,13 +16,11 @@ export default class Character {
   public ScoreTank: number | null;
   public RaidProgress: string;
   public WlogsProfile: string;
-  public AvgDps: number;
-  public AvgHps: number;
 
-  public constructor(id: number, rioChar: RioCharacter, wlogsChar: WlogsCharacter) {
+  public constructor(id: number, rioChar: RioCharacter, wlogsProfile: string) {
     this.Id = id;
     this.fromRio(rioChar);
-    this.fromWarcraftLogs(wlogsChar);
+    this.WlogsProfile = wlogsProfile;
   }
 
   private fromRio(rioChar: RioCharacter) {        
@@ -38,12 +35,6 @@ export default class Character {
     this.ScoreHealer = Utils.canHeal(rioChar.Class) ? rioChar.Mythic_plus_score_healer : null;
     this.ScoreTank = Utils.canTank(rioChar.Class) ? rioChar.Mythic_plus_score_tank : null;
     this.RaidProgress = rioChar.Raid_progression_summary;
-  }
-
-  private fromWarcraftLogs(wlogsChar: WlogsCharacter) {
-    this.WlogsProfile = wlogsChar.Profile;
-    this.AvgDps = wlogsChar.AverageDps;
-    this.AvgHps = wlogsChar.AverageHps;
   }
 
   public static comparingName(f: Character, s: Character): number {

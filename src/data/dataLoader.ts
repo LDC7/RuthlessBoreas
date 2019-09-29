@@ -1,11 +1,11 @@
 import CharacterIdentity from '../models/characterIdentity';
 import RioCharacter from '../models/rioCharacter';
 import Character from '../models/character';
-import WlogsCharacter from '../models/wlogsCharacter';
 
 export default class DataLoader {
+  private static serversTranslation: any = require('./ruServers.json');
 
-  private static loadCharsIdentity(): Array<CharacterIdentity> {    
+  private static LoadCharsIdentity(): Array<CharacterIdentity> {    
     const serializedData = require('./charsData.json') as Array<any>;
     const chars = new Array<CharacterIdentity>();
 
@@ -38,24 +38,32 @@ export default class DataLoader {
       request.send();
     });
   }
-  
-  public static async getCharacters(): Promise<Array<Character>> {
-    const chars = DataLoader.loadCharsIdentity();
-    const rioPromises = new Array<Promise<any>>();
-    const wlogsDpsPromises = new Array<Promise<any>>();
-    const wlogsHpsPromises = new Array<Promise<any>>();
+
+  private static GetCharRaiderIoUrl(char: CharacterIdentity): string {
+    const name = encodeURIComponent(char.Name);
+    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent';
+    return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
+  }
+
+  private static GetCharWlogsProfileUrl(char: CharacterIdentity): string {
+    const name = encodeURIComponent(char.Name);
+    const server = encodeURIComponent(DataLoader.serversTranslation[char.Realm]);
+
+    return `https://www.warcraftlogs.com/character/${char.Region}/${server}/${name}`;
+  }
+
+  public static async GetCharacters(): Promise<Array<Character>> {
+    const chars = DataLoader.LoadCharsIdentity();
+    const promises = new Array<Promise<any>>();
     const data = new Array<Character>();
 
     chars.forEach((val) => {
-      rioPromises.push(DataLoader.getRequest(RioCharacter.getCharRaiderIoUrl(val)));
-      wlogsDpsPromises.push(DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(val, 'dps')));
-      wlogsHpsPromises.push(DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(val, 'hps')));
+      promises.push(DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(val)));
     });
 
     for(let i = 0; i < chars.length; i++) {
-      const rioChar = new RioCharacter(await rioPromises[i]);
-      const wlogsChar = new WlogsCharacter(chars[i], await wlogsDpsPromises[i], await wlogsHpsPromises[i]);
-      data.push(new Character(i + 1, rioChar, wlogsChar));
+      const rioChar = new RioCharacter(await promises[i]);
+      data.push(new Character(i + 1, rioChar, DataLoader.GetCharWlogsProfileUrl(chars[i])));
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));
