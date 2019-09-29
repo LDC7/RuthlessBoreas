@@ -1,11 +1,12 @@
+import Character from '../models/character';
 import CharacterIdentity from '../models/characterIdentity';
 import RioCharacter from '../models/rioCharacter';
-import Character from '../models/character';
+
+const serversTranslation: any = require('./ruServers.json');
 
 export default class DataLoader {
-  private static serversTranslation: any = require('./ruServers.json');
 
-  private static LoadCharsIdentity(): Array<CharacterIdentity> {    
+  private static loadCharsIdentity(): Array<CharacterIdentity> {    
     const serializedData = require('./charsData.json') as Array<any>;
     const chars = new Array<CharacterIdentity>();
 
@@ -39,31 +40,24 @@ export default class DataLoader {
     });
   }
 
-  private static GetCharRaiderIoUrl(char: CharacterIdentity): string {
+  private static getCharWlogsProfileUrl(char: CharacterIdentity): string {
     const name = encodeURIComponent(char.Name);
-    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent';
-    return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
-  }
-
-  private static GetCharWlogsProfileUrl(char: CharacterIdentity): string {
-    const name = encodeURIComponent(char.Name);
-    const server = encodeURIComponent(DataLoader.serversTranslation[char.Realm]);
-
+    const server = encodeURIComponent(serversTranslation[char.Realm]);
     return `https://www.warcraftlogs.com/character/${char.Region}/${server}/${name}`;
   }
 
-  public static async GetCharacters(): Promise<Array<Character>> {
-    const chars = DataLoader.LoadCharsIdentity();
+  public static async getCharacters(): Promise<Array<Character>> {
+    const chars = DataLoader.loadCharsIdentity();
     const promises = new Array<Promise<any>>();
     const data = new Array<Character>();
 
     chars.forEach((val) => {
-      promises.push(DataLoader.getRequest(DataLoader.GetCharRaiderIoUrl(val)));
+      promises.push(DataLoader.getRequest(RioCharacter.getCharRaiderIoUrl(val)));
     });
 
     for(let i = 0; i < chars.length; i++) {
       const rioChar = new RioCharacter(await promises[i]);
-      data.push(new Character(i + 1, rioChar, DataLoader.GetCharWlogsProfileUrl(chars[i])));
+      data.push(new Character(i + 1, rioChar, DataLoader.getCharWlogsProfileUrl(chars[i])));
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));
