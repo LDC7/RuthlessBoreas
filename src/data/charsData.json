@@ -63,10 +63,15 @@
     "name": "Юнэса",
     "realm": "gordunni",
     "region": "eu"
-  },  
+  },
   {
     "name": "Ярослава",
     "realm": "borean-tundra",
+    "region": "eu"
+  },
+  {
+    "name": "Аллэргия",
+    "realm": "fordragon",
     "region": "eu"
   }
 ]
