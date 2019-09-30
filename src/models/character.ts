@@ -30,10 +30,10 @@ export default class Character {
     this.Portrait = rioChar.Thumbnail_url;
     this.RioProfile = rioChar.Profile_url;
     this.ItemLevel = rioChar.Gear_item_level_total;
-    this.ScoreAll = rioChar.Mythic_plus_score_all;
-    this.ScoreDps = rioChar.Mythic_plus_score_dps;
-    this.ScoreHealer = Utils.canHeal(rioChar.Class) ? rioChar.Mythic_plus_score_healer : null;
-    this.ScoreTank = Utils.canTank(rioChar.Class) ? rioChar.Mythic_plus_score_tank : null;
+    this.ScoreAll = Math.round(rioChar.Mythic_plus_score_all);
+    this.ScoreDps = Math.round(rioChar.Mythic_plus_score_dps);
+    this.ScoreHealer = Utils.canHeal(rioChar.Class) ? Math.round(rioChar.Mythic_plus_score_healer) : null;
+    this.ScoreTank = Utils.canTank(rioChar.Class) ? Math.round(rioChar.Mythic_plus_score_tank) : null;
     this.RaidProgress = rioChar.Raid_progression_summary;
   }
 
