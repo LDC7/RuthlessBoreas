@@ -1,12 +1,14 @@
 #app {
-    width: 1280px;    
+    width: 90%;
+    min-width: 1280px;
     padding-top: 50px;
 }
 
 #app-header {
     display: flex;
     height: 100px;
-    width: 1280px;
+    width: 100%;
+    min-width: 1280px;
     background-size: cover;
     background-image: url('../images/alliancebanner1.jpg');
     color: #69f;
@@ -20,7 +22,8 @@
 }
 
 #app-table {
-    width: 1280px;
+    width: 100%;
+    min-width: 1280px;
     border-collapse: collapse;
     border: 4px;
     table-layout: fixed;

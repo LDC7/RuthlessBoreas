@@ -23,6 +23,9 @@ export default class RioCharacter {
   public Mythic_plus_score_healer: number;
   public Mythic_plus_score_tank: number;
   public Raid_progression_summary: string;
+  public Mythic_plus_weekly_highest_level_runs_level: number;
+  public Mythic_plus_weekly_highest_level_runs_name: string;
+  public Mythic_plus_weekly_highest_level_runs_short_name: string;
   
   public constructor(data: any) {
     this.Name = data.name;
@@ -36,11 +39,17 @@ export default class RioCharacter {
     this.Mythic_plus_score_healer = score.healer;
     this.Mythic_plus_score_tank = score.tank;
     this.Raid_progression_summary = data.raid_progression[raidName].summary;
+    const week_keys: Array<any> = data.mythic_plus_weekly_highest_level_runs;
+    if (week_keys.length > 0) {
+      this.Mythic_plus_weekly_highest_level_runs_level = week_keys[0].mythic_level;
+      this.Mythic_plus_weekly_highest_level_runs_name = week_keys[0].dungeon;
+      this.Mythic_plus_weekly_highest_level_runs_short_name = week_keys[0].short_name;
+    }
   }
 
   public static getCharRaiderIoUrl(char: CharacterIdentity): string {
     const name = encodeURIComponent(char.Name);
-    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent';
+    const fields = 'gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent%2Cmythic_plus_weekly_highest_level_runs';
     return `https://raider.io/api/v1/characters/profile?region=${char.Region}&realm=${char.Realm}&name=${name}&fields=${fields}`;
   }
 }

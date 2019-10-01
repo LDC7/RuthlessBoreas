@@ -12,9 +12,11 @@ export default class DataLoader {
 
     serializedData.forEach((val) => {
       const char = new CharacterIdentity();
+      char.Id = val.id;
       char.Name = val.name;
       char.Realm = val.realm;
       char.Region = val.region;
+      char.Main = val.main;
 
       chars.push(char);
     });
@@ -57,7 +59,7 @@ export default class DataLoader {
 
     for(let i = 0; i < chars.length; i++) {
       const rioChar = new RioCharacter(await promises[i]);
-      data.push(new Character(i + 1, rioChar, DataLoader.getCharWlogsProfileUrl(chars[i])));
+      data.push(new Character(chars[i], rioChar, DataLoader.getCharWlogsProfileUrl(chars[i])));
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));

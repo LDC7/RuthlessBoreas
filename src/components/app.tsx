@@ -58,6 +58,7 @@ export default class App extends React.Component<IProps, IState> {
       {this.renderTableHeaderColumn(5, <img title='Heal Rio' src={role_healer} />, () => this.onTableHeaderClick(5, Character.comparingKeyProgressHeal))}
       {this.renderTableHeaderColumn(6, <img title='Dps Rio' src={role_dps} />, () => this.onTableHeaderClick(6, Character.comparingKeyProgressDps))}
       {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}
+      <th>Max Week Key</th>
       <th></th>
     </tr>;
   }
@@ -86,12 +87,14 @@ export default class App extends React.Component<IProps, IState> {
     if (!this.state.loaded || this.state.data == null || this.state.data.length == 0)
       return <LoadingSpiner />;
     
+    const data: Array<Character> = this.state.data;
     let evenFlag = false;
     return <div id='app'>
       {this.renderHeader()}
       <table id='app-table'>
         {this.renderTableHeader()}
-        {this.state.data.map((char) => {
+        {data.map((char) => {
+          char.setMainName(data);
           evenFlag = !evenFlag;
           return <Article key={char.Id} character={char} even={evenFlag} />
         })}

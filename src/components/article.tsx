@@ -30,12 +30,12 @@ export default class Article extends React.Component<IProps, IState> {
     </td>;
   }
 
-  private renderText(text: string, textColor?: string | null): React.ReactNode {
+  private renderText(text: string, textColor?: string | null, hint?: string | null): React.ReactNode {
     const color = textColor != null
-      ? { 'color': textColor } as React.CSSProperties
+      ? { 'color': textColor, 'font-style': hint ? 'italic' : 'bold' } as React.CSSProperties
       : undefined;
 
-    return <td className='article-textpart' style={color}>
+    return <td className='article-textpart' title={hint ? hint : undefined} style={color}>
       {text}
     </td>;
   }
@@ -57,13 +57,14 @@ export default class Article extends React.Component<IProps, IState> {
     
     return <tr style={color}>
       {this.renderImage()}
-      {this.renderText(char.Name, Utils.getColorClass(char.Class))}
+      {this.renderText(char.Name, Utils.getColorClass(char.Class), char.MainName)}
       {this.renderText(char.ItemLevel.toString())}
       {this.renderText(char.RaidProgress, Utils.getColorRaidProgress(char.RaidProgress))}
       {char.ScoreTank != null ? this.renderText(char.ScoreTank.toString(), Utils.getColorKeyProgress(char.ScoreTank)) : this.renderEmptyCell()}
       {char.ScoreHealer != null ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
+      {this.renderText(`${char.MaxWeekKeyLevel.toString()}${char.MaxWeekKeyShortName != null ? ' ' + char.MaxWeekKeyShortName : '' }`, Utils.getColorMaxKey(char.MaxWeekKeyLevel), char.MaxWeekKeyName)}
       {this.renderLinks()}
     </tr>;
   }

@@ -1,3 +1,4 @@
+import CharacterIdentity from './characterIdentity';
 import RioCharacter from './rioCharacter';
 
 import Utils from '../utils/utils';
@@ -5,7 +6,6 @@ import Utils from '../utils/utils';
 export default class Character {
   public Id: number;
   public Name: string;
-  public Race: string;
   public Class: string;
   public Portrait: string;
   public RioProfile: string;
@@ -16,16 +16,28 @@ export default class Character {
   public ScoreTank: number | null;
   public RaidProgress: string;
   public WlogsProfile: string;
+  public MainId: number;
+  public MainName: string | null;
+  public MaxWeekKeyLevel: number;
+  public MaxWeekKeyShortName: string | null;
+  public MaxWeekKeyName: string | null;
 
-  public constructor(id: number, rioChar: RioCharacter, wlogsProfile: string) {
-    this.Id = id;
+  public constructor(identity: CharacterIdentity, rioChar: RioCharacter, wlogsProfile: string) {
+    this.Id = identity.Id;
+    this.MainId = identity.Main;
     this.fromRio(rioChar);
     this.WlogsProfile = wlogsProfile;
   }
 
+  public setMainName(characters: Array<Character>) {
+    if (this.Id != this.MainId) {
+      const mainChar = characters.filter(char => char.Id == this.MainId)[0];
+      this.MainName = mainChar.Name;
+    }
+  }
+
   private fromRio(rioChar: RioCharacter) {        
     this.Name = rioChar.Name;
-    this.Race = rioChar.Race;
     this.Class = rioChar.Class;
     this.Portrait = rioChar.Thumbnail_url;
     this.RioProfile = rioChar.Profile_url;
@@ -35,6 +47,18 @@ export default class Character {
     this.ScoreHealer = Utils.canHeal(rioChar.Class) ? Math.round(rioChar.Mythic_plus_score_healer) : null;
     this.ScoreTank = Utils.canTank(rioChar.Class) ? Math.round(rioChar.Mythic_plus_score_tank) : null;
     this.RaidProgress = rioChar.Raid_progression_summary;
+    this.setMaxWeekKey(rioChar);
+  }
+
+  private setMaxWeekKey(rioChar: RioCharacter) {
+    if (rioChar.Mythic_plus_weekly_highest_level_runs_level != null) {
+      this.MaxWeekKeyLevel = rioChar.Mythic_plus_weekly_highest_level_runs_level;
+      this.MaxWeekKeyName = rioChar.Mythic_plus_weekly_highest_level_runs_name;
+      this.MaxWeekKeyShortName = rioChar.Mythic_plus_weekly_highest_level_runs_short_name;
+    } else {
+      this.MaxWeekKeyLevel = 0;
+      this.MaxWeekKeyName = null;
+    }
   }
 
   public static comparingName(f: Character, s: Character): number {

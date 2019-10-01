@@ -83,13 +83,26 @@ export default class Utils {
     return Utils.getColorUncommon();
   }
 
-  public static getPercentageColor(percent: number) {
+  public static getColorPercentage(percent: number) {
     if (percent >= 80)
       return Utils.getColorEpic();
 
     if (percent >= 50)
       return Utils.getColorRare();
 
+    return Utils.getColorUncommon();
+  }
+
+  public static getColorMaxKey(keyLevel: number) {
+    if (keyLevel == 0)
+      return null;
+
+    if (keyLevel >= 15)
+      return Utils.getColorEpic();
+
+    if (keyLevel >= 10)
+      return Utils.getColorRare();
+      
     return Utils.getColorUncommon();
   }
 }
