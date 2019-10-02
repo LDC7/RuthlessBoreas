@@ -1,22 +1,9 @@
-.article-imgpart {
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    height: 50px;
-    width: 50px;
-    display: block;
-}
-
 .article-image {
     height: 100%;
     border-width: 0;
     border-style: solid;
     border-right-width: 2px;
     border-color: rgb(0, 0, 0);
-}
-
-.article-textpart {
-    text-align: center;
 }
 
 .article-textpart span {

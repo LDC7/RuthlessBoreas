@@ -1,6 +1,6 @@
 import Character from '../models/character';
-import CharacterIdentity from '../models/characterIdentity';
-import RioCharacter from '../models/rioCharacter';
+import CharacterIdentity from '../models/characteridentity';
+import RioCharacter from '../models/riocharacter';
 
 const serversTranslation: any = require('./ruServers.json');
 

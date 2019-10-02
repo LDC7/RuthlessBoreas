@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import MyCell from './mycell';
+
 import Character from '../models/character';
 import Utils from '../utils/utils';
 
@@ -21,32 +23,33 @@ export default class Article extends React.Component<IProps, IState> {
   }
 
   private renderEmptyCell(): React.ReactNode {
-    return <td></td>;
+    return MyCell.renderEmptyCell();
   }
 
   private renderImage(): React.ReactNode | null {
-    return <td className='article-imgpart'>
-      <img className='article-image' src={this.props.character.Portrait}/>
-    </td>;
+    const styles = { 'display': 'block', 'text-align': 'left' } as React.CSSProperties;
+    const image = <img className='article-image' src={this.props.character.Portrait}/>;
+
+    return <MyCell style={styles} content={image} />;
   }
 
-  private renderText(text: string, textColor?: string | null, hint?: string | null): React.ReactNode {
-    const color = textColor != null
-      ? { 'color': textColor, 'font-style': hint ? 'italic' : 'bold' } as React.CSSProperties
-      : undefined;
+  private renderName(text: string, textColor: string, mainName?: string | null): React.ReactNode {
+    const styles = { 'color': textColor, 'font-style': mainName ? 'italic' : 'bold' } as React.CSSProperties;
 
-    return <td className='article-textpart' title={hint ? hint : undefined} style={color}>
-      {text}
-    </td>;
+    return <MyCell content={text} hint={mainName} style={styles} />;
+  }
+
+  private renderText(text: string, textColor?: string | null): React.ReactNode {
+    return <MyCell content={text} color={textColor} />;
   }
 
   private renderLinks(): React.ReactNode {
-    return <td className='article-textpart'>
-      <span>
-        <a target="_blank" href={this.props.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
-        <a target="_blank" href={this.props.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
-      </span>
-    </td>
+    const links = <span>
+      <a target="_blank" href={this.props.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
+      <a target="_blank" href={this.props.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
+    </span>;
+
+    return <MyCell content={links} />;
   }
 
   public render(): React.ReactNode {
@@ -57,14 +60,14 @@ export default class Article extends React.Component<IProps, IState> {
     
     return <tr style={color}>
       {this.renderImage()}
-      {this.renderText(char.Name, Utils.getColorClass(char.Class), char.MainName)}
+      {this.renderName(char.Name, Utils.getColorClass(char.Class), char.MainName)}
       {this.renderText(char.ItemLevel.toString())}
       {this.renderText(char.RaidProgress, Utils.getColorRaidProgress(char.RaidProgress))}
       {char.ScoreTank != null ? this.renderText(char.ScoreTank.toString(), Utils.getColorKeyProgress(char.ScoreTank)) : this.renderEmptyCell()}
       {char.ScoreHealer != null ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
-      {this.renderText(`${char.MaxWeekKeyLevel.toString()}${char.MaxWeekKeyShortName != null ? ' ' + char.MaxWeekKeyShortName : '' }`, Utils.getColorMaxKey(char.MaxWeekKeyLevel), char.MaxWeekKeyName)}
+      {char.MaxWeekKey.MaxWeekKeyName != null ? <MyCell hint={char.MaxWeekKey.MaxWeekKeyName} content={char.MaxWeekKey.getKeyString()} color={Utils.getColorMaxKey(char.MaxWeekKey.MaxWeekKeyLevel)} /> : this.renderEmptyCell()}
       {this.renderLinks()}
     </tr>;
   }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Article from './article';
-import LoadingSpiner from './loadingSpiner';
+import LoadingSpiner from './loadingspiner';
 
 import DataLoader from '../data/dataLoader';
 import Character from '../models/character';
@@ -45,7 +45,7 @@ export default class App extends React.Component<IProps, IState> {
 
   private renderTableHeaderColumn(index: number, child: React.ReactNode, onClick?: () => void): React.ReactNode {
     return <th className={index == this.sortColumnNumber ? 'table-header-sort-column-selected'
-      : 'table-header-sort-column'} onClick={onClick}><div className='table-header-sort-column-content'>{child}</div></th>;
+      : 'table-header-sort-column'} onClick={onClick}>{child}</th>;
   }
 
   private renderTableHeader(): React.ReactNode {
@@ -57,8 +57,8 @@ export default class App extends React.Component<IProps, IState> {
       {this.renderTableHeaderColumn(4, <img title='Tank Rio' src={role_tank} />, () => this.onTableHeaderClick(4, Character.comparingKeyProgressTank))}
       {this.renderTableHeaderColumn(5, <img title='Heal Rio' src={role_healer} />, () => this.onTableHeaderClick(5, Character.comparingKeyProgressHeal))}
       {this.renderTableHeaderColumn(6, <img title='Dps Rio' src={role_dps} />, () => this.onTableHeaderClick(6, Character.comparingKeyProgressDps))}
-      {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}
-      <th>Max Week Key</th>
+      {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}      
+      {this.renderTableHeaderColumn(8, 'Max Week Key', () => this.onTableHeaderClick(8, Character.comparingMaxWeekKey))}
       <th></th>
     </tr>;
   }

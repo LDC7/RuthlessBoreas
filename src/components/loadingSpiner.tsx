@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-require('./loadingSpiner.css');
+require('./loadingspiner.css');
 
 const spiner = require('../images/loader.gif');
 

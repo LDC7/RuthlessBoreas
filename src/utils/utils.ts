@@ -3,6 +3,7 @@ const keyScoreData = require('../data/keyData.json');
 export default class Utils {
   private static tankClasses = ['Death Knight', 'Demon Hunter', 'Druid', 'Monk', 'Paladin', 'Warrior'];
   private static healClasses = ['Druid', 'Monk', 'Paladin', 'Priest', 'Shaman'];
+  private static legendKeyScore = keyScoreData.legendKeyScore;
   private static epicKeyScore = keyScoreData.epicKeyScore;
   private static rareKeyScore = keyScoreData.rareKeyScore;
   
@@ -57,6 +58,10 @@ export default class Utils {
     return '#a335ee';
   }
 
+  public static getColorLegend(): string {
+    return '#ff8000';
+  }
+
   public static getColorRaidProgress(raidProgress: string) {
     if (raidProgress.includes('M'))
       return Utils.getColorEpic();
@@ -74,6 +79,9 @@ export default class Utils {
     if (score == 0)
       return null;
 
+    if (score >= Utils.legendKeyScore)
+      return Utils.getColorLegend();
+
     if (score >= Utils.epicKeyScore)
       return Utils.getColorEpic();
 
@@ -84,7 +92,10 @@ export default class Utils {
   }
 
   public static getColorPercentage(percent: number) {
-    if (percent >= 80)
+    if (percent >= 90)
+      return Utils.getColorLegend();
+
+    if (percent >= 75)
       return Utils.getColorEpic();
 
     if (percent >= 50)
@@ -98,9 +109,12 @@ export default class Utils {
       return null;
 
     if (keyLevel >= 15)
-      return Utils.getColorEpic();
+      return Utils.getColorLegend();
 
     if (keyLevel >= 10)
+      return Utils.getColorEpic();
+
+    if (keyLevel >= 5)
       return Utils.getColorRare();
       
     return Utils.getColorUncommon();

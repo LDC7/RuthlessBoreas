@@ -1,4 +1,4 @@
-import CharacterIdentity from './characterIdentity';
+import CharacterIdentity from './characteridentity';
 
 const raidName = require('../data/raidData.json').lastRaid;
 
@@ -24,6 +24,7 @@ export default class RioCharacter {
   public Mythic_plus_score_tank: number;
   public Raid_progression_summary: string;
   public Mythic_plus_weekly_highest_level_runs_level: number;
+  public Mythic_plus_weekly_highest_level_runs_score: number;
   public Mythic_plus_weekly_highest_level_runs_name: string;
   public Mythic_plus_weekly_highest_level_runs_short_name: string;
   
@@ -42,6 +43,7 @@ export default class RioCharacter {
     const week_keys: Array<any> = data.mythic_plus_weekly_highest_level_runs;
     if (week_keys.length > 0) {
       this.Mythic_plus_weekly_highest_level_runs_level = week_keys[0].mythic_level;
+      this.Mythic_plus_weekly_highest_level_runs_score = week_keys[0].score;
       this.Mythic_plus_weekly_highest_level_runs_name = week_keys[0].dungeon;
       this.Mythic_plus_weekly_highest_level_runs_short_name = week_keys[0].short_name;
     }

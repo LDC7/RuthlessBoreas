@@ -46,11 +46,12 @@
     border-color:  rgb(0, 0, 0);
 }
 
-.table-header-sort-column-content {
+.table-header-sort-column {
     cursor: pointer;
 }
 
 .table-header-sort-column-selected {
+    cursor: pointer;
     border-bottom-color: rgb(128, 128, 128) !important;
 }
 
