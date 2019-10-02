@@ -6,12 +6,6 @@
     border-color: rgb(0, 0, 0);
 }
 
-.article-textpart span {
-    display: flex;
-    width: 120px;
-    justify-content: space-evenly;
-}
-
 .article-link-img {
     height: 25px;
 }

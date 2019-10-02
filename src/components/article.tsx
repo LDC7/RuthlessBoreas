@@ -44,7 +44,11 @@ export default class Article extends React.Component<IProps, IState> {
   }
 
   private renderLinks(): React.ReactNode {
-    const links = <span>
+    const styles = {
+      'display': 'flex',
+      'width': '120px',
+      'justify-content': 'space-evenly' } as React.CSSProperties;
+    const links = <span style={styles}>
       <a target="_blank" href={this.props.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
       <a target="_blank" href={this.props.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
     </span>;
