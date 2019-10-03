@@ -71,7 +71,7 @@ export default class Article extends React.Component<IProps, IState> {
       {char.ScoreHealer != null ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
-      {char.MaxWeekKey.MaxWeekKeyName != null ? <MyCell hint={char.MaxWeekKey.MaxWeekKeyName} content={char.MaxWeekKey.getKeyString()} color={Utils.getColorMaxKey(char.MaxWeekKey.MaxWeekKeyLevel)} /> : this.renderEmptyCell()}
+      {char.MaxWeekKey != null ? <MyCell hint={char.MaxWeekKey.Name} content={char.MaxWeekKey.getKeyString()} color={Utils.getColorMaxKey(char.MaxWeekKey.KeyLevel)} /> : this.renderEmptyCell()}
       {this.renderLinks()}
     </tr>;
   }
