@@ -20,12 +20,14 @@ export default class Character {
   public MainId: number;
   public MainName: string | null;
   public MaxWeekKey: Dungeon | null;
+  public ArmoryProfile: string;
 
-  public constructor(identity: CharacterIdentity, rioChar: RioCharacter, wlogsProfile: string) {
+  public constructor(identity: CharacterIdentity, rioChar: RioCharacter, wlogsProfile: string, armoryProfile: string) {
     this.Id = identity.Id;
     this.MainId = identity.Main;
     this.fromRio(rioChar);
     this.WlogsProfile = wlogsProfile;
+    this.ArmoryProfile = armoryProfile;
   }
 
   public setMainName(characters: Array<Character>) {
@@ -54,8 +56,8 @@ export default class Character {
     if (rioChar.Mythic_plus_weekly_highest_level_runs_level != null) {
       this.MaxWeekKey = new Dungeon(rioChar.Mythic_plus_weekly_highest_level_runs_name,
         rioChar.Mythic_plus_weekly_highest_level_runs_short_name,
-        rioChar.Mythic_plus_weekly_highest_level_runs_level,
-        rioChar.Mythic_plus_weekly_highest_level_runs_score);
+        rioChar.Mythic_plus_weekly_highest_level_runs_score,
+        rioChar.Mythic_plus_weekly_highest_level_runs_level);
     }
   }
 

@@ -48,6 +48,11 @@ export default class DataLoader {
     return `https://www.warcraftlogs.com/character/${char.Region}/${server}/${name}`;
   }
 
+  private static getCharArmoryProfileUrl(char: CharacterIdentity): string {
+    const name = encodeURIComponent(char.Name);
+    return `https://worldofwarcraft.com/ru-ru/character/${char.Region}/${char.Realm}/${name}`;
+  }
+
   public static async getCharacters(): Promise<Array<Character>> {
     const chars = DataLoader.loadCharsIdentity();
     const promises = new Array<Promise<any>>();
@@ -59,7 +64,10 @@ export default class DataLoader {
 
     for(let i = 0; i < chars.length; i++) {
       const rioChar = new RioCharacter(await promises[i]);
-      data.push(new Character(chars[i], rioChar, DataLoader.getCharWlogsProfileUrl(chars[i])));
+      data.push(new Character(chars[i],
+        rioChar,
+        DataLoader.getCharWlogsProfileUrl(chars[i]),
+        DataLoader.getCharArmoryProfileUrl(chars[i])));
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));
