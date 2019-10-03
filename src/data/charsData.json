@@ -25,7 +25,7 @@
     "name": "Данамеби",
     "realm": "borean-tundra",
     "region": "eu",
-    "main": 4
+    "main": 16
   },
   {
     "id": 5,
@@ -103,5 +103,12 @@
     "realm": "fordragon",
     "region": "eu",
     "main": 10
+  },
+  {
+    "id": 16,
+    "name": "Зирель",
+    "realm": "borean-tundra",
+    "region": "eu",
+    "main": 16
   }
 ]
