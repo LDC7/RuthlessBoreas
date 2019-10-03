@@ -31,7 +31,7 @@ export default class App extends React.Component<IProps, IState> {
     };
     DataLoader.getCharacters().then((data) => {
       this.setState({
-        data: data,
+        data: data.sort((a, b) => Character.comparingMainAlt(b, a)),
         loaded: true
       });
     });

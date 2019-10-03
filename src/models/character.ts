@@ -138,4 +138,14 @@ export default class Character {
 
     return f.MaxWeekKey.KeyLevel - s.MaxWeekKey.KeyLevel;
   }
+
+  public static comparingMainAlt(f: Character, s: Character): number {
+    if ((f.MainId == f.Id && s.MainId == s.Id) || (f.MainId != f.Id && s.MainId != s.Id))
+      return 0;
+    
+    if (f.MainId == f.Id)
+      return 1;
+
+    return -1;
+  }
 }
