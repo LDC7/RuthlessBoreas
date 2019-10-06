@@ -27,6 +27,7 @@ export default class RioCharacter {
   public Mythic_plus_weekly_highest_level_runs_score: number;
   public Mythic_plus_weekly_highest_level_runs_name: string;
   public Mythic_plus_weekly_highest_level_runs_short_name: string;
+  public Mythic_plus_weekly_highest_level_runs_upgrade: number;
   
   public constructor(data: any) {
     this.Name = data.name;
@@ -46,6 +47,7 @@ export default class RioCharacter {
       this.Mythic_plus_weekly_highest_level_runs_score = week_keys[0].score;
       this.Mythic_plus_weekly_highest_level_runs_name = week_keys[0].dungeon;
       this.Mythic_plus_weekly_highest_level_runs_short_name = week_keys[0].short_name;
+      this.Mythic_plus_weekly_highest_level_runs_upgrade = week_keys[0].num_keystone_upgrades;
     }
   }
 
