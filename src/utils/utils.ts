@@ -63,8 +63,16 @@ export default class Utils {
   }
 
   public static getColorRaidProgress(raidProgress: string) {
-    if (raidProgress.includes('M'))
+    if (raidProgress.includes('M')) {
+      const slashIndex = raidProgress.indexOf('/');
+      const spaceIndex = raidProgress.indexOf(' ');
+      const progress = raidProgress.substr(0, slashIndex);
+      const max = raidProgress.substr(slashIndex + 1, spaceIndex - slashIndex - 1);
+      if (progress == max)
+        return Utils.getColorLegend();  
+
       return Utils.getColorEpic();
+    }
 
     if (raidProgress.includes('H'))
       return Utils.getColorRare();
