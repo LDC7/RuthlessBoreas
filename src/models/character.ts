@@ -21,6 +21,7 @@ export default class Character {
   public MainName: string | null;
   public MaxWeekKey: Dungeon | null;
   public ArmoryProfile: string;
+  public MaxSeasonKey: Dungeon | null;
 
   public constructor(identity: CharacterIdentity, rioChar: RioCharacter, wlogsProfile: string, armoryProfile: string) {
     this.Id = identity.Id;
@@ -49,6 +50,7 @@ export default class Character {
     this.ScoreTank = Utils.canTank(rioChar.Class) ? Math.round(rioChar.Mythic_plus_score_tank) : null;
     this.RaidProgress = rioChar.Raid_progression_summary;
     this.setMaxWeekKey(rioChar);
+    this.setMaxSeasonKey(rioChar);
   }
 
   private setMaxWeekKey(rioChar: RioCharacter) {
@@ -59,6 +61,17 @@ export default class Character {
         rioChar.Mythic_plus_weekly_highest_level_runs_score,
         rioChar.Mythic_plus_weekly_highest_level_runs_level,
         rioChar.Mythic_plus_weekly_highest_level_runs_upgrade);
+    }
+  }
+
+  private setMaxSeasonKey(rioChar: RioCharacter) {
+    this.MaxSeasonKey = null;
+    if (rioChar.Mythic_plus_season_highest_level_runs_level != null) {
+      this.MaxSeasonKey = new Dungeon(rioChar.Mythic_plus_season_highest_level_runs_name,
+        rioChar.Mythic_plus_season_highest_level_runs_short_name,
+        rioChar.Mythic_plus_season_highest_level_runs_score,
+        rioChar.Mythic_plus_season_highest_level_runs_level,
+        rioChar.Mythic_plus_season_highest_level_runs_upgrade);
     }
   }
 
@@ -124,20 +137,25 @@ export default class Character {
     return f.ScoreAll - s.ScoreAll;
   }
 
-  public static comparingMaxWeekKey(f: Character, s: Character): number {
-    if (f.MaxWeekKey == null && s.MaxWeekKey == null)
+  private static comparingKey(f: Dungeon | null, s: Dungeon | null): number {
+    if (f == null && s == null)
       return 0;
 
-    if (f.MaxWeekKey == null)
+    if (f == null)
       return -1;
 
-    if (s.MaxWeekKey == null)
+    if (s == null)
       return 1;
 
-    if (f.MaxWeekKey.KeyLevel == s.MaxWeekKey.KeyLevel)
-      return f.MaxWeekKey.Score - s.MaxWeekKey.Score;
+    return Dungeon.comparingKey(f, s);
+  }
 
-    return f.MaxWeekKey.KeyLevel - s.MaxWeekKey.KeyLevel;
+  public static comparingMaxWeekKey(f: Character, s: Character): number {
+    return Character.comparingKey(f.MaxWeekKey, s.MaxWeekKey);
+  }
+
+  public static comparingMaxSeasonKey(f: Character, s: Character): number {
+    return Character.comparingKey(f.MaxSeasonKey, s.MaxSeasonKey);
   }
 
   public static comparingMainAlt(f: Character, s: Character): number {

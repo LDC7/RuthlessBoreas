@@ -26,4 +26,11 @@ export default class Dungeon {
 
     return null;
   }
+
+  public static comparingKey(f: Dungeon, s: Dungeon): number {
+    if (f.KeyLevel == s.KeyLevel)
+      return f.Score - s.Score;
+
+    return f.KeyLevel - s.KeyLevel;
+  }
 }

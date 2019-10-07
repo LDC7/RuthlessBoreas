@@ -57,8 +57,9 @@ export default class App extends React.Component<IProps, IState> {
       {this.renderTableHeaderColumn(4, <img title='Tank Rio' src={role_tank} />, () => this.onTableHeaderClick(4, Character.comparingKeyProgressTank))}
       {this.renderTableHeaderColumn(5, <img title='Heal Rio' src={role_healer} />, () => this.onTableHeaderClick(5, Character.comparingKeyProgressHeal))}
       {this.renderTableHeaderColumn(6, <img title='Dps Rio' src={role_dps} />, () => this.onTableHeaderClick(6, Character.comparingKeyProgressDps))}
-      {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}      
+      {this.renderTableHeaderColumn(7, <img title='Rio' src={role_all} />, () => this.onTableHeaderClick(7, Character.comparingKeyProgressAll))}
       {this.renderTableHeaderColumn(8, 'Max Week Key', () => this.onTableHeaderClick(8, Character.comparingMaxWeekKey))}
+      {this.renderTableHeaderColumn(9, 'Max Season', () => this.onTableHeaderClick(9, Character.comparingMaxSeasonKey))}
       <th></th>
     </tr>;
   }

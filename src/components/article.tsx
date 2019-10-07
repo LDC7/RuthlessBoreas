@@ -3,6 +3,7 @@ import * as React from 'react';
 import MyCell from './mycell';
 
 import Character from '../models/character';
+import Dungeon from '../models/dungeon';
 import Utils from '../utils/utils';
 
 require('./article.css');
@@ -57,6 +58,12 @@ export default class Article extends React.Component<IProps, IState> {
     return <MyCell content={links} />;
   }
 
+  private renderDungeon(dungeon: Dungeon | null): React.ReactNode {
+    return dungeon != null
+      ? <MyCell hint={dungeon.Name} content={dungeon.getKeyString()} color={Utils.getColorMaxKey(dungeon.KeyLevel)} />
+      : this.renderEmptyCell();
+  }
+
   public render(): React.ReactNode {
     const char = this.props.character;
     const color = {
@@ -72,7 +79,8 @@ export default class Article extends React.Component<IProps, IState> {
       {char.ScoreHealer != null ? this.renderText(char.ScoreHealer.toString(), Utils.getColorKeyProgress(char.ScoreHealer)) : this.renderEmptyCell()}
       {this.renderText(char.ScoreDps.toString(), Utils.getColorKeyProgress(char.ScoreDps))}
       {this.renderText(char.ScoreAll.toString(), Utils.getColorKeyProgress(char.ScoreAll))}
-      {char.MaxWeekKey != null ? <MyCell hint={char.MaxWeekKey.Name} content={char.MaxWeekKey.getKeyString()} color={Utils.getColorMaxKey(char.MaxWeekKey.KeyLevel)} /> : this.renderEmptyCell()}
+      {this.renderDungeon(char.MaxWeekKey)}
+      {this.renderDungeon(char.MaxSeasonKey)}
       {this.renderLinks()}
     </tr>;
   }
