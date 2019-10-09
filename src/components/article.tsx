@@ -60,7 +60,7 @@ export default class Article extends React.Component<IProps, IState> {
 
   private renderDungeon(dungeon: Dungeon | null): React.ReactNode {
     return dungeon != null
-      ? <MyCell hint={dungeon.Name} content={dungeon.getKeyString()} color={Utils.getColorMaxKey(dungeon.KeyLevel)} />
+      ? <MyCell hint={dungeon.getNameWithTime()} content={dungeon.getKeyString()} color={Utils.getColorMaxKey(dungeon.KeyLevel)} />
       : this.renderEmptyCell();
   }
 

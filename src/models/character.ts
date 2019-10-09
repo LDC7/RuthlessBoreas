@@ -60,7 +60,8 @@ export default class Character {
         rioChar.Mythic_plus_weekly_highest_level_runs_short_name,
         rioChar.Mythic_plus_weekly_highest_level_runs_score,
         rioChar.Mythic_plus_weekly_highest_level_runs_level,
-        rioChar.Mythic_plus_weekly_highest_level_runs_upgrade);
+        rioChar.Mythic_plus_weekly_highest_level_runs_upgrade,
+        rioChar.Mythic_plus_weekly_highest_level_runs_time);
     }
   }
 
@@ -71,7 +72,8 @@ export default class Character {
         rioChar.Mythic_plus_season_highest_level_runs_short_name,
         rioChar.Mythic_plus_season_highest_level_runs_score,
         rioChar.Mythic_plus_season_highest_level_runs_level,
-        rioChar.Mythic_plus_season_highest_level_runs_upgrade);
+        rioChar.Mythic_plus_season_highest_level_runs_upgrade,
+        rioChar.Mythic_plus_season_highest_level_runs_time);
     }
   }
 

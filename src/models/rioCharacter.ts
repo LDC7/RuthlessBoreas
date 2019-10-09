@@ -28,11 +28,13 @@ export default class RioCharacter {
   public Mythic_plus_weekly_highest_level_runs_name: string;
   public Mythic_plus_weekly_highest_level_runs_short_name: string;
   public Mythic_plus_weekly_highest_level_runs_upgrade: number;
+  public Mythic_plus_weekly_highest_level_runs_time: number;
   public Mythic_plus_season_highest_level_runs_level: number;
   public Mythic_plus_season_highest_level_runs_score: number;
   public Mythic_plus_season_highest_level_runs_name: string;
   public Mythic_plus_season_highest_level_runs_short_name: string;
   public Mythic_plus_season_highest_level_runs_upgrade: number;
+  public Mythic_plus_season_highest_level_runs_time: number;
   
   public constructor(data: any) {
     this.Name = data.name;
@@ -53,6 +55,7 @@ export default class RioCharacter {
       this.Mythic_plus_weekly_highest_level_runs_name = week_keys[0].dungeon;
       this.Mythic_plus_weekly_highest_level_runs_short_name = week_keys[0].short_name;
       this.Mythic_plus_weekly_highest_level_runs_upgrade = week_keys[0].num_keystone_upgrades;
+      this.Mythic_plus_weekly_highest_level_runs_time = week_keys[0].clear_time_ms;
     }
     const season_keys: Array<any> = data.mythic_plus_highest_level_runs;
     if (season_keys.length > 0) {
@@ -61,6 +64,7 @@ export default class RioCharacter {
       this.Mythic_plus_season_highest_level_runs_name = season_keys[0].dungeon;
       this.Mythic_plus_season_highest_level_runs_short_name = season_keys[0].short_name;
       this.Mythic_plus_season_highest_level_runs_upgrade = season_keys[0].num_keystone_upgrades;
+      this.Mythic_plus_season_highest_level_runs_time = season_keys[0].clear_time_ms;
     }
   }
 
