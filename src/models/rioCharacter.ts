@@ -50,21 +50,23 @@ export default class RioCharacter {
     this.Raid_progression_summary = data.raid_progression[raidName].summary;
     const week_keys: Array<any> = data.mythic_plus_weekly_highest_level_runs;
     if (week_keys.length > 0) {
-      this.Mythic_plus_weekly_highest_level_runs_level = week_keys[0].mythic_level;
-      this.Mythic_plus_weekly_highest_level_runs_score = week_keys[0].score;
-      this.Mythic_plus_weekly_highest_level_runs_name = week_keys[0].dungeon;
-      this.Mythic_plus_weekly_highest_level_runs_short_name = week_keys[0].short_name;
-      this.Mythic_plus_weekly_highest_level_runs_upgrade = week_keys[0].num_keystone_upgrades;
-      this.Mythic_plus_weekly_highest_level_runs_time = week_keys[0].clear_time_ms;
+      const best_week_key = week_keys.sort((a, b) => b.score - a.score)[0];
+      this.Mythic_plus_weekly_highest_level_runs_level = best_week_key.mythic_level;
+      this.Mythic_plus_weekly_highest_level_runs_score = best_week_key.score;
+      this.Mythic_plus_weekly_highest_level_runs_name = best_week_key.dungeon;
+      this.Mythic_plus_weekly_highest_level_runs_short_name = best_week_key.short_name;
+      this.Mythic_plus_weekly_highest_level_runs_upgrade = best_week_key.num_keystone_upgrades;
+      this.Mythic_plus_weekly_highest_level_runs_time = best_week_key.clear_time_ms;
     }
     const season_keys: Array<any> = data.mythic_plus_highest_level_runs;
     if (season_keys.length > 0) {
-      this.Mythic_plus_season_highest_level_runs_level = season_keys[0].mythic_level;
-      this.Mythic_plus_season_highest_level_runs_score = season_keys[0].score;
-      this.Mythic_plus_season_highest_level_runs_name = season_keys[0].dungeon;
-      this.Mythic_plus_season_highest_level_runs_short_name = season_keys[0].short_name;
-      this.Mythic_plus_season_highest_level_runs_upgrade = season_keys[0].num_keystone_upgrades;
-      this.Mythic_plus_season_highest_level_runs_time = season_keys[0].clear_time_ms;
+      const best_season_key = season_keys.sort((a, b) => b.score - a.score)[0];
+      this.Mythic_plus_season_highest_level_runs_level = best_season_key.mythic_level;
+      this.Mythic_plus_season_highest_level_runs_score = best_season_key.score;
+      this.Mythic_plus_season_highest_level_runs_name = best_season_key.dungeon;
+      this.Mythic_plus_season_highest_level_runs_short_name = best_season_key.short_name;
+      this.Mythic_plus_season_highest_level_runs_upgrade = best_season_key.num_keystone_upgrades;
+      this.Mythic_plus_season_highest_level_runs_time = best_season_key.clear_time_ms;
     }
   }
 
