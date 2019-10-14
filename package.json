@@ -6,28 +6,15 @@
   "homepage": "https://ldc7.github.io/RuthlessBoreas/",
   "scripts": {
     "build": "npx webpack",
-    "build2": "node_modules/.bin/webpack --debug --devtool source-map --progress --profile",
-    "build3": "./node_modules/.bin/webpack",
     "deploy": "gh-pages -d dist"
   },
   "license": "ISC",
-  "dependencies": {
-    "@types/react": "16.9.5",
-    "@types/react-dom": "16.9.1",
-    "@types/react-router-dom": "5.1.0",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
-    "react-modal": "3.10.1",
-    "react-redux": "7.1.1",
-    "react-router-dom": "5.1.2",
-    "react-router-modal": "1.5.2",
-    "react-scripts": "3.2.0",
-    "typescript": "3.6.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "12.7.12",
     "@types/react": "16.9.5",
     "@types/react-dom": "16.9.1",
+    "@types/react-modal": "3.8.3",
     "copy-webpack-plugin": "5.0.4",
     "css-loader": "3.2.0",
     "file-loader": "4.2.0",
@@ -40,6 +27,7 @@
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-modal": "3.10.1",
+    "react-redux": "7.1.1",
     "react-scripts": "3.2.0",
     "source-map-loader": "0.2.4",
     "style-loader": "1.0.0",

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactModal from 'react-modal';
 
 import Article from './article';
 import LoadingSpiner from './loadingspiner';
@@ -17,6 +18,7 @@ interface IProps { }
 interface IState {
   data: Array<Character> | null;
   loaded: boolean;
+  showModal: boolean;
 }
 
 export default class App extends React.Component<IProps, IState> {
@@ -27,7 +29,8 @@ export default class App extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       data: null,
-      loaded: false
+      loaded: false,
+      showModal: false
     };
     DataLoader.getCharacters().then((data) => {
       this.setState({
@@ -35,6 +38,14 @@ export default class App extends React.Component<IProps, IState> {
         loaded: true
       });
     });
+  }
+
+  private handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+
+  private handleCloseModal () {
+    this.setState({ showModal: false });
   }
 
   private renderHeader(): React.ReactNode {
@@ -91,6 +102,14 @@ export default class App extends React.Component<IProps, IState> {
     const data: Array<Character> = this.state.data;
     let evenFlag = false;
     return <div id='app'>
+      <ReactModal
+        isOpen={this.state.showModal}
+        contentLabel="Minimal Modal Example"
+      >
+          <button onClick={this.handleCloseModal.bind(this)}>Close Modal</button>
+      </ReactModal>
+      <button onClick={this.handleOpenModal.bind(this)}>Trigger Modal</button>
+      
       {this.renderHeader()}
       <table id='app-table'>
         {this.renderTableHeader()}
