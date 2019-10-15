@@ -4,8 +4,9 @@ import ReactModal from 'react-modal';
 import Article from './article';
 import LoadingSpiner from './loadingspiner';
 
-import DataLoader from '../data/dataLoader';
 import Character from '../models/character';
+import DataLoader from '../data/dataloader';
+import ReduxService, { Dispatcher, StateGetter, CharactersAction } from '../service/reduxservice';
 
 require('./app.css');
 const role_tank = require('../images/role_tank.webp');
@@ -14,9 +15,8 @@ const role_dps = require('../images/role_dps.webp');
 const role_all = require('../images/flag.webp');
 
 interface IProps { }
-
+ 
 interface IState {
-  data: Array<Character> | null;
   loaded: boolean;
   showModal: boolean;
 }
@@ -24,17 +24,19 @@ interface IState {
 export default class App extends React.Component<IProps, IState> {
   private sortColumnNumber: number | null = null;
   private ascSorting: boolean = true;
+  private dispatch: Dispatcher;
+  private getState: StateGetter;
 
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      data: null,
       loaded: false,
       showModal: false
     };
-    DataLoader.getCharacters().then((data) => {
+    ReduxService.initiateStore();
+    this.dispatch = ReduxService.getDispatch();
+    DataLoader.loadCharacters().then(() => {
       this.setState({
-        data: data.sort((a, b) => Character.comparingMainAlt(b, a)),
         loaded: true
       });
     });
@@ -76,15 +78,16 @@ export default class App extends React.Component<IProps, IState> {
   }
 
   private onTableHeaderClick(column: number, sortFunc: ((f: Character, s: Character) => number)) {
-    if (this.state.data != null) {
+    if (this.state.loaded) {
       if (column == this.sortColumnNumber)
         this.ascSorting = !this.ascSorting;
       else
         this.sortColumnNumber = column;
-      
-      this.setState({
-        data: this.state.data.sort((a, b) => sortFunc(a, b) * (this.ascSorting ? 1 : -1))
-      });
+
+      let chars = this.getState().characters;
+      chars = chars != null ? chars.sort((a, b) => sortFunc(a, b) * (this.ascSorting ? 1 : -1)) : [];
+      const action = new CharactersAction(chars);
+      this.dispatch(action);
     }
   }
 
@@ -96,10 +99,10 @@ export default class App extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {    
-    if (!this.state.loaded || this.state.data == null || this.state.data.length == 0)
+    if (!this.state.loaded)
       return <LoadingSpiner />;
     
-    const data: Array<Character> = this.state.data;
+    const data: Array<Character> = this.getState().characters as Array<Character>;
     let evenFlag = false;
     return <div id='app'>
       <ReactModal

@@ -4,7 +4,7 @@ import MyCell from './mycell';
 
 import Character from '../models/character';
 import Dungeon from '../models/dungeon';
-import Utils from '../utils/utils';
+import Utils from '../service/utils';
 
 require('./article.css');
 const rioLogo = require('../images/favicon.png');

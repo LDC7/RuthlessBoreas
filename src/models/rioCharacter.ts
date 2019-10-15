@@ -1,6 +1,6 @@
 import CharacterIdentity from './characteridentity';
 
-const raidName = require('../data/raidData.json').lastRaid;
+const raidName = require('../data/raiddata.json').lastRaid;
 
 export default class RioCharacter {
   public Name: string;

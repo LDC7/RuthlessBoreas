@@ -2,7 +2,7 @@ import CharacterIdentity from './characteridentity';
 import RioCharacter from './riocharacter';
 import Dungeon from './dungeon';
 
-import Utils from '../utils/utils';
+import Utils from '../service/utils';
 
 export default class Character {
   public Id: number;

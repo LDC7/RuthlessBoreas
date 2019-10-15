@@ -1,4 +1,4 @@
-const keyScoreData = require('../data/keyData.json');
+const keyScoreData = require('../data/keydata.json');
 
 export default class Utils {
   private static tankClasses = ['Death Knight', 'Demon Hunter', 'Druid', 'Monk', 'Paladin', 'Warrior'];

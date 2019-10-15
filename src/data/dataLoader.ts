@@ -1,13 +1,14 @@
 import Character from '../models/character';
 import CharacterIdentity from '../models/characteridentity';
+import ReduxService, { CharactersAction } from '../service/reduxservice';
 import RioCharacter from '../models/riocharacter';
 
-const serversTranslation: any = require('./ruServers.json');
+const serversTranslation: any = require('./ruservers.json');
 
 export default class DataLoader {
 
   private static loadCharsIdentity(): Array<CharacterIdentity> {    
-    const serializedData = require('./charsData.json') as Array<any>;
+    const serializedData = require('./charsdata.json') as Array<any>;
     const chars = new Array<CharacterIdentity>();
 
     serializedData.forEach((val) => {
@@ -53,7 +54,7 @@ export default class DataLoader {
     return `https://worldofwarcraft.com/ru-ru/character/${char.Region}/${char.Realm}/${name}`;
   }
 
-  public static async getCharacters(): Promise<Array<Character>> {
+  private static async getCharacters(): Promise<Array<Character>> {
     const chars = DataLoader.loadCharsIdentity();
     const promises = new Array<Promise<any>>();
     const data = new Array<Character>();
@@ -71,5 +72,13 @@ export default class DataLoader {
     }
 
     return new Promise<Array<Character>>((resolve) => resolve(data));
+  }
+
+  public static async loadCharacters(): Promise<void> {
+    return DataLoader.getCharacters().then((chars) => {
+      const dispatch = ReduxService.getDispatch();
+      const action = new CharactersAction(chars);
+      dispatch(action);
+    });
   }
 }
