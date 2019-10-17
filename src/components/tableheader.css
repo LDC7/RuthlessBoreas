@@ -1,0 +1,30 @@
+#table-header {
+    height: 50px;
+    background-color: rgb(0, 0, 0);
+    padding: 0;
+    user-select: none;
+}
+
+#table-header th {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border: 4px;
+    border-style: solid;
+    border-bottom-width: thick;
+    border-color:  rgb(0, 0, 0);
+}
+
+.table-header-sort-column {
+    cursor: pointer;
+}
+
+.table-header-sort-column-selected {
+    cursor: pointer;
+    border-bottom-color: rgb(128, 128, 128) !important;
+}
+
+#table-header img {
+    height: 50px;
+    width: 50px;
+}

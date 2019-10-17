@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Character from '../models/character';
 import Dungeon from '../models/dungeon';
+import StoreService from '../service/storeservice';
 import Utils from '../service/utils';
 
 import MyCell from './mycell';
@@ -12,16 +13,18 @@ const logLogo = require('../images/wlogsicon.png');
 const armLogo = require('../images/wowicon.png');
 
 interface IProps {
-  character: Character;
+  characterId: number;
   even: boolean;
 }
 
 interface IState { }
 
 export default class Article extends React.Component<IProps, IState> {
+  private character: Character;
 
   public constructor(props: IProps) {
     super(props);
+    this.character = (StoreService.getState().characters as Array<Character>).find(char => char.Id == this.props.characterId) as Character;
   }
 
   private renderEmptyCell(): React.ReactNode {
@@ -30,7 +33,7 @@ export default class Article extends React.Component<IProps, IState> {
 
   private renderImage(): React.ReactNode | null {
     const styles = { 'display': 'block', 'text-align': 'left' } as React.CSSProperties;
-    const image = <img className='article-image' src={this.props.character.Portrait}/>;
+    const image = <img className='article-image' src={this.character.Portrait}/>;
 
     return <MyCell style={styles} content={image} />;
   }
@@ -50,9 +53,9 @@ export default class Article extends React.Component<IProps, IState> {
       'display': 'flex',
       'justify-content': 'space-evenly' } as React.CSSProperties;
     const links = <span style={styles}>
-      <a target="_blank" href={this.props.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
-      <a target="_blank" href={this.props.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
-      <a target="_blank" href={this.props.character.ArmoryProfile}><img className='article-link-img' src={armLogo} /></a>
+      <a target="_blank" href={this.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
+      <a target="_blank" href={this.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
+      <a target="_blank" href={this.character.ArmoryProfile}><img className='article-link-img' src={armLogo} /></a>
     </span>;
 
     return <MyCell content={links} />;
@@ -65,7 +68,7 @@ export default class Article extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {
-    const char = this.props.character;
+    const char = this.character;
     const color = {
       'background-color': this.props.even ? '#353535' : '#2b2b2b'
     } as React.CSSProperties;

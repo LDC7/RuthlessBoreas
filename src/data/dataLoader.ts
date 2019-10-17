@@ -77,6 +77,7 @@ export default class DataLoader {
 
   public static async loadCharacters(): Promise<void> {
     return DataLoader.getCharacters().then((chars) => {
+      chars.map(char => char.setMainName(chars));
       StoreService.setState({
         characters: chars,
         sortedCharacterIds: chars.sort((a, b) => CharacterSortingService.comparingMainAlt(b, a, true)).map(char => char.Id)

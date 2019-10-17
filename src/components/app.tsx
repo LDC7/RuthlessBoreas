@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ReactModal from 'react-modal';
 
-import Character from '../models/character';
 import DataLoader from '../data/dataloader';
 import StoreService from '../service/storeservice';
 
@@ -59,7 +58,7 @@ export default class App extends React.Component<IProps, IState> {
     if (!this.state.loaded)
       return <LoadingSpiner />;
     
-    const data: Array<Character> = StoreService.getState().characters as Array<Character>;
+    const dataIds = StoreService.getState().sortedCharacterIds as Array<number>;
     let evenFlag = false;
     return <div id='app'>
       <ReactModal
@@ -73,10 +72,9 @@ export default class App extends React.Component<IProps, IState> {
       {this.renderAppHeader()}
       <table id='app-table'>
         <TableHeader/>
-        {data.map((char) => {
-          char.setMainName(data);
+        {dataIds.map((id) => {
           evenFlag = !evenFlag;
-          return <Article key={char.Id} character={char} even={evenFlag} />
+          return <Article key={id} characterId={id} even={evenFlag} />
         })}
       </table>
       {this.renderFooter()}
