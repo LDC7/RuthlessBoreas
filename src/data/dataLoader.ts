@@ -1,6 +1,7 @@
 import Character from '../models/character';
 import CharacterIdentity from '../models/characteridentity';
-import ReduxService, { CharactersAction } from '../service/reduxservice';
+import CharacterSortingService from '../service/characterSortingService';
+import StoreService from '../service/storeservice';
 import RioCharacter from '../models/riocharacter';
 
 const serversTranslation: any = require('./ruservers.json');
@@ -76,9 +77,10 @@ export default class DataLoader {
 
   public static async loadCharacters(): Promise<void> {
     return DataLoader.getCharacters().then((chars) => {
-      const dispatch = ReduxService.getDispatch();
-      const action = new CharactersAction(chars);
-      dispatch(action);
+      StoreService.setState({
+        characters: chars,
+        sortedCharacterIds: chars.sort((a, b) => CharacterSortingService.comparingMainAlt(b, a, true)).map(char => char.Id)
+      });
     });
   }
 }

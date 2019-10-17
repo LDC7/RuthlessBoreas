@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import MyCell from './mycell';
-
 import Character from '../models/character';
 import Dungeon from '../models/dungeon';
 import Utils from '../service/utils';
+
+import MyCell from './mycell';
 
 require('./article.css');
 const rioLogo = require('../images/favicon.png');
