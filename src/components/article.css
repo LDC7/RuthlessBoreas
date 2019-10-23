@@ -9,3 +9,7 @@
 .article-link-img {
     height: 25px;
 }
+
+.char-name-span {
+    cursor: pointer;
+}

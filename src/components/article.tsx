@@ -38,10 +38,17 @@ export default class Article extends React.Component<IProps, IState> {
     return <MyCell style={styles} content={image} />;
   }
 
+  private openCharacterCard() {
+    StoreService.setState({modalView: this.character.getCard()});
+  }
+
   private renderName(text: string, textColor: string, mainName?: string | null): React.ReactNode {
     const styles = { 'color': textColor, 'font-style': mainName ? 'italic' : 'bold' } as React.CSSProperties;
+    const name = <span className='char-name-span' onClick={this.openCharacterCard.bind(this)}>
+      {text}
+    </span>;
 
-    return <MyCell content={text} hint={mainName} style={styles} />;
+    return <MyCell content={name} hint={mainName} style={styles} />;
   }
 
   private renderText(text: string, textColor?: string | null): React.ReactNode {

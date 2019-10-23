@@ -3,6 +3,7 @@ import CharacterIdentity from '../models/characteridentity';
 import CharacterSortingService from '../service/characterSortingService';
 import StoreService from '../service/storeservice';
 import RioCharacter from '../models/riocharacter';
+import WlogsCharacter from '../models/wlogscharacter';
 
 const serversTranslation: any = require('./ruservers.json');
 
@@ -53,6 +54,12 @@ export default class DataLoader {
   private static getCharArmoryProfileUrl(char: CharacterIdentity): string {
     const name = encodeURIComponent(char.Name);
     return `https://worldofwarcraft.com/ru-ru/character/${char.Region}/${char.Realm}/${name}`;
+  }
+
+  public static async getWlogsCharacterData(char: CharacterIdentity): Promise<WlogsCharacter> {
+    const wlogsDpsPromises = await DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'dps'));
+    const wlogsHpsPromises = await DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'hps'));
+    return new WlogsCharacter(wlogsDpsPromises, wlogsHpsPromises);
   }
 
   private static async getCharacters(): Promise<Array<Character>> {

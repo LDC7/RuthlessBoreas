@@ -5,7 +5,7 @@ import Character from '../models/character';
 class AppStore {
   sortedCharacterIds?: Array<number>;
   characters?: Array<Character>;
-  modalView?: any;
+  modalView?: React.ReactNode;
 }
 
 export default class StoreService {
@@ -25,7 +25,7 @@ export default class StoreService {
   }
   
   public static setState(additionalState: AppStore) {
-    StoreService.store = Object.assign(StoreService.store, additionalState);
+    StoreService.store = { ...StoreService.store, ...additionalState };
     StoreService.callbacks.map(callback => callback());
   }
 }

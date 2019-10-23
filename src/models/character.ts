@@ -1,5 +1,7 @@
 import Utils from '../service/utils';
+import CharacterCard from '../components/charactercard';
 
+import CharacterCardData from './charactercarddata';
 import CharacterIdentity from './characteridentity';
 import RioCharacter from './riocharacter';
 import Dungeon from './dungeon';
@@ -22,6 +24,7 @@ export default class Character {
   public MaxWeekKey: Dungeon | null;
   public ArmoryProfile: string;
   public MaxSeasonKey: Dungeon | null;
+  public CardData: CharacterCardData;
 
   public constructor(identity: CharacterIdentity, rioChar: RioCharacter, wlogsProfile: string, armoryProfile: string) {
     this.Id = identity.Id;
@@ -29,6 +32,7 @@ export default class Character {
     this.fromRio(rioChar);
     this.WlogsProfile = wlogsProfile;
     this.ArmoryProfile = armoryProfile;
+    this.CardData = new CharacterCardData(identity, this.Portrait);
   }
 
   public setMainName(characters: Array<Character>) {
@@ -75,5 +79,9 @@ export default class Character {
         rioChar.Mythic_plus_season_highest_level_runs_upgrade,
         rioChar.Mythic_plus_season_highest_level_runs_time);
     }
+  }
+
+  public getCard(): React.ReactNode {
+    return CharacterCard.createCard(this.CardData);
   }
 }
