@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import DataLoader from '../data/dataloader';
-import StoreService from '../service/storeservice';
+import StoreService, { SubscribeType } from '../service/storeservice';
 
 import Article from './article';
 import LoadingSpiner from './loadingspiner';
@@ -23,7 +23,7 @@ export default class App extends React.Component<IProps, IState> {
     this.state = {
       loaded: false
     };
-    StoreService.subscribeComponent(this);
+    StoreService.subscribeComponent(SubscribeType.sortedCharacterIds, this);
     DataLoader.loadCharacters().then(() => {
       this.setState({loaded: true});
     });

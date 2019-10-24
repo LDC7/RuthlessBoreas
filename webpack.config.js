@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const rules = [
@@ -39,7 +38,7 @@ const resolve = {
 module.exports = {
   mode: "production",
   entry: {
-    app: ['./src/index.tsx'],//, 'webpack-hot-middleware/client'],
+    app: ['./src/index.tsx'],
     vendor: ['react', 'react-dom']
   },
   output: {

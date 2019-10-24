@@ -57,9 +57,9 @@ export default class DataLoader {
   }
 
   public static async getWlogsCharacterData(char: CharacterIdentity): Promise<WlogsCharacter> {
-    const wlogsDpsPromises = await DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'dps'));
-    const wlogsHpsPromises = await DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'hps'));
-    return new WlogsCharacter(wlogsDpsPromises, wlogsHpsPromises);
+    const wlogsDpsPromises = DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'dps'));
+    const wlogsHpsPromises = DataLoader.getRequest(WlogsCharacter.getWlogsRankingUrl(char, 'hps'));
+    return new WlogsCharacter(await wlogsDpsPromises, await wlogsHpsPromises);
   }
 
   private static async getCharacters(): Promise<Array<Character>> {
@@ -85,10 +85,8 @@ export default class DataLoader {
   public static async loadCharacters(): Promise<void> {
     return DataLoader.getCharacters().then((chars) => {
       chars.map(char => char.setMainName(chars));
-      StoreService.setState({
-        characters: chars,
-        sortedCharacterIds: chars.sort((a, b) => CharacterSortingService.comparingMainAlt(b, a, true)).map(char => char.Id)
-      });
+      StoreService.setCharacters(chars);
+      StoreService.setSortedIds(chars.sort((a, b) => CharacterSortingService.comparingMainAlt(b, a, true)).map(char => char.Id));
     });
   }
 }

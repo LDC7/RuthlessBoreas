@@ -39,7 +39,7 @@ export default class Article extends React.Component<IProps, IState> {
   }
 
   private openCharacterCard() {
-    StoreService.setState({modalView: this.character.getCard()});
+    StoreService.setModal(this.character.getCard());
   }
 
   private renderName(text: string, textColor: string, mainName?: string | null): React.ReactNode {

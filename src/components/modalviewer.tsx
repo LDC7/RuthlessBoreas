@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactModal from 'react-modal';
 
-import StoreService from '../service/storeservice';
+import StoreService, { SubscribeType } from '../service/storeservice';
 
 require('./modalviewer.css');
 
@@ -13,11 +13,11 @@ export default class ModalViewer extends React.Component<IProps, IState> {
 
   public constructor(props: IProps) {
     super(props);
-    StoreService.subscribeComponent(this);
+    StoreService.subscribeComponent(SubscribeType.modalView, this);
   }
 
   private closeModal() {
-    StoreService.setState({modalView: null});
+    StoreService.setModal(null);
   }
 
   private renderCloseButton(): React.ReactNode {

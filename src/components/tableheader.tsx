@@ -31,7 +31,7 @@ export default class TableHeader extends React.Component<IProps, IState> {
         
     let chars = StoreService.getState().characters as Array<Character>;
     chars = chars.sort((a, b) => sortFunc(a, b, this.ascSorting));
-    StoreService.setState({sortedCharacterIds: chars.map(char => char.Id)});
+    StoreService.setSortedIds(chars.map(char => char.Id));
   }
 
   public render(): React.ReactNode {  
