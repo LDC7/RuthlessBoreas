@@ -21,8 +21,7 @@ export default class ModalViewer extends React.Component<IProps, IState> {
   }
 
   private renderCloseButton(): React.ReactNode {
-    return <button onClick={this.closeModal}>Close</button> 
-
+    return <button className="modal-close-button" onClick={this.closeModal}>Close</button> 
   }
 
   private getContent(): React.ReactNode {
@@ -45,8 +44,8 @@ export default class ModalViewer extends React.Component<IProps, IState> {
       shouldCloseOnEsc={true}
       onRequestClose={this.closeModal}
       contentLabel="Minimal Modal Example"
-      className="Modal"
-      overlayClassName="Overlay"
+      className="modal"
+      overlayClassName="overlay"
     >
       {content}
     </ReactModal>;

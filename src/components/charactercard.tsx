@@ -3,6 +3,8 @@ import * as React from 'react';
 import LoadingSpiner from '../components/loadingspiner'
 import CharacterCardData from '../models/charactercarddata';
 
+require('./charactercard.css');
+
 interface IProps {
   data: CharacterCardData;
 }
@@ -16,8 +18,9 @@ export default class CharacterCard extends React.Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      data: this.props.data
+      data: this.props.data.IsLoaded ? this.props.data : null
     };
+    
     if (!this.props.data.IsLoaded)
       this.props.data.load().then(() => this.setState({data: this.props.data}));
   }
@@ -35,7 +38,7 @@ export default class CharacterCard extends React.Component<IProps, IState> {
   private renderCard(): React.ReactNode {
     const char = this.state.data as CharacterCardData;
     return <div className='character-card'>
-      <img src={char.PortraitUrl}/>
+      <img className='character-card-image' src={char.PortraitUrl}/>
       {char.AverageDps}
       {char.AverageHps}
     </div>;

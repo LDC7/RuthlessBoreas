@@ -23,8 +23,10 @@ class Subscribes {
   
   public constructor() {
     const enumLength = Object.keys(SubscribeType).length / 2;
-    for (let i = 0; i < enumLength; i++)
-      this.callbacks[SubscribeType[i]] = [];
+    this.callbacks = {} as Dictionary<SubscribeType, Array<Callback>>;
+    for (let i = 0; i < enumLength; i++) {
+      this.callbacks[i] = [];
+    }
   }
 
   public subscribe(type: SubscribeType, callback: Callback) {

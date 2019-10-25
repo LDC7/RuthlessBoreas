@@ -1,6 +1,10 @@
 .loading-spiner {
-    width: 350px;
-    height: 350px;
     position: absolute;
-    top: 20vh;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    height: 250px;
+    margin: auto;
 }
