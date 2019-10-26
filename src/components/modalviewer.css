@@ -23,6 +23,8 @@
     position: fixed;
     border: 0;
     background-color: #2b2b2b;
+    font-size: 26px;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .modal-close-button:hover {

@@ -1,43 +1,53 @@
 import CharacterIdentity from './characteridentity';
 
-import Utils from '../service/utils';
-
 const wlogsApiKey = require('../data/apikeydata.json').key;
 const serversTranslation: any = require('../data/ruservers.json');
 
+interface ICharTalant {
+  name: string;
+  id: number;
+  icon: string;
+}
+
+interface ICharItem {
+  name: string;
+  id: number;
+  icon: string;
+  quality: string;
+}
+
+export interface IWlogsData {
+  encounterID: number;
+  encounterName: string;
+  class: string;
+  spec: string;
+  rank: number;
+  outOf: number;
+  duration: number;
+  startTime: number;
+  reportID: string;
+  fightID: number;
+  difficulty: number;
+  characterID: number;
+  characterName: string;
+  server: string;
+  percentile: number;
+  ilvlKeyOrPatch: number;
+  talents: Array<ICharTalant>;
+  gear: Array<ICharItem>;
+  total: number;
+  estimated: boolean;
+}
+
 export default class WlogsCharacter {
-  public AverageDps: number;
-  public AverageHps: number;
+  public DpsData: Array<IWlogsData>;
+  public HpsData: Array<IWlogsData>;
 
   public constructor(dpsData: Array<any>, hpsData: Array<any>) {
-    this.AverageDps = this.calculateAverage(dpsData);
-    this.AverageHps = this.calculateAverage(hpsData);
+    this.DpsData = dpsData;
+    this.HpsData = hpsData;
   }
-
-  private calculateAverage(data: Array<any>): number {
-    const bestTotals = this.getBestPerEncounter(data);
-    const sum = bestTotals.reduce((previous, current) => current += previous);
-    return (sum/bestTotals.length);
-  }
-
-  private getBestPerEncounter(data: Array<any>): Array<number> {
-    const encountersBest: Array<number> = [];
-    const groupedByEncounter = Utils.groupBy(data, parse => parse.encounterName);
-    groupedByEncounter.forEach((encounter: Array<any>) => {
-      if (encounter.length != 0)        
-        encountersBest.push(this.getBestForEncounter(encounter));
-    });
-
-    return encountersBest;
-  }
-
-  private getBestForEncounter(encounter: Array<any>): number {
-    const sortedEncounter = encounter.sort((parse1, parse2) => parse2.difficulty - parse1.difficulty);
-    const hardestEncounter = sortedEncounter.filter((value) => value.difficulty == sortedEncounter[0].difficulty);
-    const totalSortedEncounter = hardestEncounter.sort((parse1, parse2) => parse2.total - parse1.total);
-    return totalSortedEncounter[0];
-  }
-
+  
   public static getWlogsRankingUrl(char: CharacterIdentity, metric: string): string {    
     const name = encodeURIComponent(char.Name);
     const server = encodeURIComponent(serversTranslation[char.Realm]);

@@ -21,7 +21,7 @@ export default class ModalViewer extends React.Component<IProps, IState> {
   }
 
   private renderCloseButton(): React.ReactNode {
-    return <button className="modal-close-button" onClick={this.closeModal}>Close</button> 
+    return <button className="modal-close-button" onClick={this.closeModal}>X</button> 
   }
 
   private getContent(): React.ReactNode {
