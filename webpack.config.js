@@ -7,36 +7,35 @@ const rules = [
     exclude: /node_modules/,
     use: [
       {
-        loader: "ts-loader"
+        loader: 'ts-loader'
       }
     ]
   },
   {
     test: /\.css$/,
     use: [
-      "style-loader",
-      "css-loader",
-      "postcss-loader"
+      'style-loader',
+      'css-loader',
+      'postcss-loader'
     ]
   },
   {
     test: /\.(png|jpe?g|gif|ico|svg|webp|txt)$/,
     use: {
-      loader: "file-loader",
+      loader: 'file-loader',
       options: {
-        name: "[path][name].[ext]"
+        name: '[path][name].[ext]'
       }
     }
-  },
-  { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+  }
 ];
 
 const resolve = {
-  extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+  extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
 };
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: {
     app: ['./src/index.tsx'],
     vendor: ['react', 'react-dom']
@@ -45,7 +44,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].bundle.js'
   },
-  devtool: "source-map",
+  devtool: 'none',
   resolve: resolve,
   module: {
     rules: rules

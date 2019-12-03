@@ -110,5 +110,12 @@
     "realm": "borean-tundra",
     "region": "eu",
     "main": 16
+  },
+  {
+    "id": 17,
+    "name": "Айнреттель",
+    "realm": "borean-tundra",
+    "region": "eu",
+    "main": 17
   }
 ]
