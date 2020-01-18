@@ -60,9 +60,9 @@ export default class Article extends React.Component<IProps, IState> {
       'display': 'flex',
       'justify-content': 'space-evenly' } as React.CSSProperties;
     const links = <span style={styles}>
-      <a target="_blank" href={this.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
-      <a target="_blank" href={this.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
-      <a target="_blank" href={this.character.ArmoryProfile}><img className='article-link-img' src={armLogo} /></a>
+      <a target='_blank' href={this.character.RioProfile}><img className='article-link-img' src={rioLogo} /></a>
+      <a target='_blank' href={this.character.WlogsProfile}><img className='article-link-img' src={logLogo} /></a>
+      <a target='_blank' href={this.character.ArmoryProfile}><img className='article-link-img' src={armLogo} /></a>
     </span>;
 
     return <MyCell content={links} />;

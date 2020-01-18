@@ -9,7 +9,7 @@ const serversTranslation: any = require('./ruservers.json');
 
 export default class DataLoader {
 
-  private static loadCharsIdentity(): Array<CharacterIdentity> {    
+  private static loadCharsIdentity(): Array<CharacterIdentity> {
     const serializedData = require('./charsdata.json') as Array<any>;
     const chars = new Array<CharacterIdentity>();
 

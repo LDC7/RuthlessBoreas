@@ -1,4 +1,4 @@
-import TimeSpan from "./timespan";
+import TimeSpan from './timespan';
 
 export default class Dungeon {
   public KeyLevel: number;

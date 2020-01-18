@@ -48,7 +48,6 @@ export default class CharacterCardData {
   }
 
   private calculateAverage(numbers: Array<number>): number {
-    console.log('arr', numbers);
     const sum = numbers.reduce((previous, current) => current += previous);    
     return Math.round(sum/numbers.length);
   }

@@ -41,7 +41,7 @@ export default class RioCharacter {
     this.Class = data.class;
     this.Thumbnail_url = data.thumbnail_url;
     this.Profile_url = data.profile_url;
-    this.Gear_item_level_total = data.gear.item_level_total;
+    this.Gear_item_level_total = data.gear.item_level_total > 0 ? data.gear.item_level_total : data.gear.item_level_equipped;
     const score = data.mythic_plus_scores_by_season[0].scores;
     this.Mythic_plus_score_all = score.all;
     this.Mythic_plus_score_dps = score.dps;
