@@ -1,0 +1,17 @@
+﻿@foreach (var character in StorageService.Characters)
+{
+  <Article Character=character />
+}
+
+@code {
+  private bool isSubscribed;
+
+  protected override void OnInitialized()
+  {
+    if (!this.isSubscribed)
+    {
+      StorageService.SubscribeOnSortedCharacterIdsChange(this.StateHasChanged);
+      this.isSubscribed = true;
+    }
+  }
+}

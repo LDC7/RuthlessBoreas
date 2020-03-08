@@ -1,0 +1,94 @@
+﻿@inject IModalService Modal
+
+@if (this.Char.RaiderIo == null || !this.Char.IsWarcraftLogsDataLoaded)
+{
+  <div class="character-card">
+    <LoadingSpiner />
+  </div>
+}
+else
+{
+  <div class="character-card">
+    <div class="character-card-header" style=@GetHeaderStyle()>@GetHeaderText()</div>
+    <div class="character-card-main">
+      <CharacterCardSidebar Char=@this.Char />
+      <CharacterCardContent Character=@this.Char.WarcraftLogs />
+    </div>
+  </div>
+}
+<button class="modal-close-button" onclick=@(new Action(this.CloseModal))>X</button>
+
+@code {
+  [CascadingParameter]
+  ModalParameters Parameters { get; set; }
+
+  private Character Char { get; set; }
+
+  private bool IsWarcraftLogsDataLoaded { get; set; }
+
+  protected override void OnInitialized()
+  {
+    this.Char = Parameters.Get<Character>("Char");
+  }
+
+  protected override async Task OnInitializedAsync()
+  {
+    if (!this.Char.IsWarcraftLogsDataLoaded)
+    {
+      await this.Char.LoadWarcraftLogsData();
+    }
+  }
+
+  private string GetHeaderStyle()
+  {
+    return $"color: {Utils.GetColorClass(this.Char.RaiderIo.Class)}";
+  }
+
+  private string GetHeaderText()
+  {
+    return $"{this.Char.Name}-{this.Char.Server.Title}";
+  }
+
+  private void CloseModal()
+  {
+    this.Modal.Close();
+  }
+}
+
+<style>
+  .character-card {
+    width: 700px;
+    height: 400px;
+  }
+
+  .character-card-image {
+    width: 200px;
+    height: 200px;
+    border-bottom: solid black 2px;
+  }
+
+  .character-card-header {
+    height: 33px;
+    font-size: 28px;
+    padding-left: 10px;
+    border-bottom: solid black 2px;
+  }
+
+  .character-card-main {
+    display: flex;
+  }
+
+  .modal-close-button {
+    right: 0;
+    top: 0;
+    position: fixed;
+    border: 0;
+    background-color: #2b2b2b;
+    font-size: 26px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+    .modal-close-button:hover {
+      background-color: #3f3f3f;
+    }
+</style>

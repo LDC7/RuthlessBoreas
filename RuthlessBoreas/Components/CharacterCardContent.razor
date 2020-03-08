@@ -1,0 +1,53 @@
+﻿<table class="character-card-content-table">
+  <tr class="character-card-content-table-row">
+    <th class="character-card-content-table-row-cell">Name</th>
+    <th class="character-card-content-table-row-cell">DPS</th>
+    <th class="character-card-content-table-row-cell">HPS</th>
+  </tr>
+  @foreach (var encounter in this.Character.BestDpsHpsPerEncounter)
+  {
+    <tr>
+      <td class="character-card-content-table-row-cell">@encounter.Key</td>
+      <td class="character-card-content-table-row-cell character-card-content-table-value"
+          style=@GetColorStyle(encounter.Value.DpsPercent)>
+        @encounter.Value.Dps
+      </td>
+      <td class="character-card-content-table-row-cell character-card-content-table-value"
+          style=@GetColorStyle(encounter.Value.HpsPercent)>
+        @encounter.Value.Hps
+      </td>
+    </tr>
+  }
+</table>
+
+@code {
+  [Parameter]
+  public WarcraftLogsCharacter Character { get; set; }
+
+  private string GetColorStyle(int? percent)
+  {
+    if (percent.HasValue)
+      return $"color: {Utils.GetColorPercentage(percent.Value)}";
+
+    return null;
+  }
+}
+
+<style>
+  .character-card-content-table {
+    font-size: 14px;
+    width: 500px;
+  }
+
+    .character-card-content-table tr {
+      height: 20px;
+    }
+
+  .character-card-content-table-row-cell {
+    border-bottom: 1px solid black !important;
+  }
+
+  .character-card-content-table-value {
+    text-align: center;
+  }
+</style>

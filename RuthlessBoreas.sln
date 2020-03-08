@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuthlessBoreas", "RuthlessBoreas.csproj", "{CEE9835D-E1F9-4752-B2A0-EE4ACEE64CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuthlessBoreas", "RuthlessBoreas\RuthlessBoreas.csproj", "{5AD35971-4DBA-4A99-9170-974E5A8B21BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuthlessBoreasDataContainer", "RuthlessBoreasDataContainer\RuthlessBoreasDataContainer.csproj", "{76E5A54B-5E1F-486C-8DB6-1A51C47E150E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CEE9835D-E1F9-4752-B2A0-EE4ACEE64CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE9835D-E1F9-4752-B2A0-EE4ACEE64CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEE9835D-E1F9-4752-B2A0-EE4ACEE64CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEE9835D-E1F9-4752-B2A0-EE4ACEE64CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD35971-4DBA-4A99-9170-974E5A8B21BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD35971-4DBA-4A99-9170-974E5A8B21BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD35971-4DBA-4A99-9170-974E5A8B21BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD35971-4DBA-4A99-9170-974E5A8B21BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E5A54B-5E1F-486C-8DB6-1A51C47E150E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E5A54B-5E1F-486C-8DB6-1A51C47E150E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E5A54B-5E1F-486C-8DB6-1A51C47E150E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E5A54B-5E1F-486C-8DB6-1A51C47E150E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

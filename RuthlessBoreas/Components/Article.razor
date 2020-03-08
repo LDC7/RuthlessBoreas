@@ -1,0 +1,137 @@
+﻿@inject IModalService Modal
+
+<tr>
+  @if (this.Character.RaiderIo != null)
+  {
+    <PortraitCell Url=@this.Character.RaiderIo.Portrait />
+  }
+  else
+  {
+    <LoadCell />
+  }
+  <td class="td-cell" title=@this.Character.Main.Name>
+    <span class="char-name-span"
+          onclick=@(new Action(() => this.CharacterNameClick()))
+          style=@GetNameStyle()>
+      @this.Character.Name
+    </span>
+  </td>
+  @if (this.Character.RaiderIo != null)
+  {
+    <ColoredTextCell Text=@this.Character.RaiderIo.ItemLevel.ToString() />
+    <ColoredTextCell Text=@this.Character.RaiderIo.RaidProgress Color=@Utils.GetColorRaidProgress(this.Character.RaiderIo.RaidProgress) />
+    @if (this.Character.RaiderIo.ScoreTank != null)
+    {
+      <ColoredTextCell Text=@this.Character.RaiderIo.ScoreTank.ToString() Color=@Utils.GetColorKeyProgress(this.Character.RaiderIo.ScoreTank.Value) />
+    }
+    else
+    {
+      <EmptyCell />
+    }
+    @if (this.Character.RaiderIo.ScoreHealer != null)
+    {
+      <ColoredTextCell Text=@this.Character.RaiderIo.ScoreHealer.ToString() Color=@Utils.GetColorKeyProgress(this.Character.RaiderIo.ScoreHealer.Value) />
+    }
+    else
+    {
+      <EmptyCell />
+    }
+    <ColoredTextCell Text=@this.Character.RaiderIo.ScoreDps.ToString() Color=@Utils.GetColorKeyProgress(this.Character.RaiderIo.ScoreDps) />
+    <ColoredTextCell Text=@this.Character.RaiderIo.ScoreAll.ToString() Color=@Utils.GetColorKeyProgress(this.Character.RaiderIo.ScoreAll) />
+    <DungeonCell Dungeon=@this.Character.RaiderIo.MaxWeekKey />
+    <DungeonCell Dungeon=@this.Character.RaiderIo.MaxSeasonKey />
+  }
+  else
+  {
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+    <LoadCell />
+  }
+  <td class="td-cell">
+    <span style="display: flex; justify-content: space-evenly">
+      @if (this.Character.RaiderIo != null)
+      {
+        <a target="_blank" href=@this.Character.RaiderIo.RioProfile><img class="article-link-img" src=@RIO_LOGO /></a>
+      }
+      <a target="_blank" href=@this.Character.WarcraftLogsProfileUrl><img class="article-link-img" src=@WARCRAFT_LOGS_LOGO /></a>
+      <a target="_blank" href=@this.Character.ArmoryProfileUrl><img class="article-link-img" src=@ARMORY_LOGO /></a>
+    </span>
+  </td>
+</tr>
+
+@code {
+  private const string RIO_LOGO = "images/favicon.png";
+  private const string WARCRAFT_LOGS_LOGO = "images/wlogsicon.png";
+  private const string ARMORY_LOGO = "images/wowicon.png";
+
+  [Parameter]
+  public Character Character { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    if (this.Character.RaiderIo == null)
+      await this.Character.LoadRioData();
+  }
+
+  private void CharacterNameClick()
+  {
+    var parameters = new ModalParameters();
+    parameters.Add("Char", this.Character);
+    var options = new ModalOptions()
+    {
+      HideHeader = true,
+      Style = "modal"
+    };
+
+    this.Modal.Show<CharacterCard>("TITLE", parameters, options);
+  }
+
+  private string GetNameStyle()
+  {
+    var fontStyle = this.Character.Main.Id == this.Character.Id ? "bold" : "italic";
+    var classColor = this.Character.RaiderIo != null ? $"color: {Utils.GetColorClass(this.Character.RaiderIo.Class)};" : string.Empty;
+    return $"{classColor} font-style: {fontStyle}";
+  }
+}
+
+<style>
+  .article-image {
+    height: 100%;
+    border-width: 0;
+    border-style: solid;
+    border-right-width: 2px;
+    border-color: rgb(0, 0, 0);
+  }
+
+  .article-link-img {
+    height: 25px;
+  }
+
+  .char-name-span {
+    cursor: pointer;
+  }
+
+  .td-cell {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    height: 50px;
+    user-select: none;
+  }
+
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 1160px;
+    background-color: #2b2b2b;
+    border: solid black 2px;
+  }
+</style>

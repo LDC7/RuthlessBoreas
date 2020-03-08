@@ -1,0 +1,86 @@
+﻿<tr id="table-header">
+  <th id="portrait-column"></th>
+  <TextHeaderCell Class=@GetColumnClass(1)
+                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(1)))
+                  Text="Name" />
+  <TextHeaderCell Class=@GetColumnClass(2)
+                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(2)))
+                  Text="ILvl" />
+  <TextHeaderCell Class=@GetColumnClass(3)
+                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(3)))
+                  Text="Raid" />
+  <ImageHeaderCell Class=@GetColumnClass(4)
+                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(4)))
+                   Hint="Tank Rio"
+                   Source=@ROLE_TANK />
+  <ImageHeaderCell Class=@GetColumnClass(5)
+                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(5)))
+                   Hint="Heal Rio"
+                   Source=@ROLE_HEALER />
+  <ImageHeaderCell Class=@GetColumnClass(6)
+                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(6)))
+                   Hint="Dps Rio"
+                   Source=@ROLE_DPS />
+  <ImageHeaderCell Class=@GetColumnClass(7)
+                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(7)))
+                   Hint="Rio"
+                   Source=@ROLE_ALL />
+  <TextHeaderCell Class=@GetColumnClass(8)
+                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(8)))
+                  Text="Max Week Key" />
+  <TextHeaderCell Class=@GetColumnClass(9)
+                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(9)))
+                  Text="Max Season" />
+  <th></th>
+</tr>
+
+@code {
+  private const string SELECTED_COLUMN_CLASS = "table-header-sort-column-selected";
+  private const string COLUMN_CLASS = "table-header-sort-column";
+  private const string ROLE_TANK = "images/role_tank.webp";
+  private const string ROLE_HEALER = "images/role_healer.webp";
+  private const string ROLE_DPS = "images/role_dps.webp";
+  private const string ROLE_ALL = "images/flag.webp";
+
+  private string GetColumnClass(int columnIndex)
+  {
+    return CharacterSortingService.SortColumnNumber == columnIndex ? SELECTED_COLUMN_CLASS : COLUMN_CLASS;
+  }
+}
+
+<style>
+  #table-header {
+    height: 50px;
+    background-color: rgb(0, 0, 0);
+    padding: 0;
+    user-select: none;
+  }
+
+    #table-header th {
+      height: 50px;
+      width: 50px;
+      padding: 0;
+      border: 4px;
+      border-style: solid;
+      border-bottom-width: thick;
+      border-color: rgb(0, 0, 0);
+    }
+
+  .table-header-sort-column {
+    cursor: pointer;
+  }
+
+  .table-header-sort-column-selected {
+    cursor: pointer;
+    border-bottom-color: rgb(128, 128, 128) !important;
+  }
+
+  #table-header img {
+    height: 50px;
+    width: 50px;
+  }
+
+  #portrait-column {
+    width: 25px;
+  }
+</style>
