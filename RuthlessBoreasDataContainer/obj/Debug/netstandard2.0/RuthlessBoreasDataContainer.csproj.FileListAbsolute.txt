@@ -1,8 +1,0 @@
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\bin\Debug\netstandard2.0\RuthlessBoreasDataContainer.deps.json
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\bin\Debug\netstandard2.0\RuthlessBoreasDataContainer.dll
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\bin\Debug\netstandard2.0\RuthlessBoreasDataContainer.pdb
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\obj\Debug\netstandard2.0\RuthlessBoreasDataContainer.AssemblyInfoInputs.cache
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\obj\Debug\netstandard2.0\RuthlessBoreasDataContainer.AssemblyInfo.cs
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\obj\Debug\netstandard2.0\RuthlessBoreasDataContainer.dll
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\obj\Debug\netstandard2.0\RuthlessBoreasDataContainer.pdb
-C:\Users\1\Desktop\Reps\RuthlessBoreas\RuthlessBoreasDataContainer\obj\Debug\netstandard2.0\RuthlessBoreasDataContainer.csprojAssemblyReference.cache
