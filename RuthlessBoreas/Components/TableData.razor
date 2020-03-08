@@ -1,6 +1,6 @@
-﻿@foreach (var character in StorageService.Characters)
+﻿@foreach (var id in StorageService.SortedCharacterIds)
 {
-  <Article Character=character />
+  <Article CharacterId=@id />
 }
 
 @code {

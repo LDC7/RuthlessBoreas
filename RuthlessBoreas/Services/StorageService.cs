@@ -7,19 +7,23 @@
 
   public static class StorageService
   {
-    private static Action charactersSubscribtions;
+    private static Action sortedCharacterIdsSubscribtions;
 
-    private static IEnumerable<Character> characters;
+    private static IEnumerable<int> sortedCharacterIds;
 
-    public static IEnumerable<Character> Characters
+    public static IEnumerable<int> SortedCharacterIds
     {
-      get => characters;
+      get => sortedCharacterIds;
       set
       {
-        characters = value;
-        charactersSubscribtions?.Invoke();
+        sortedCharacterIds = value;
+        sortedCharacterIdsSubscribtions?.Invoke();
       }
     }
+
+    private static readonly ICollection<Character> characters = new List<Character>();
+
+    public static IEnumerable<Character> Characters => characters;
 
     public static IEnumerable<WowServer> Servers { get; private set; }
 
@@ -33,13 +37,18 @@
       return Characters.FirstOrDefault(character => character.Id == id);
     }
 
+    internal static void AddCharacter(Character character)
+    {
+      characters.Add(character);
+    }
+
     public static void SubscribeOnSortedCharacterIdsChange(Action handler)
     {
-      charactersSubscribtions += handler;
+      sortedCharacterIdsSubscribtions += handler;
     }
     public static void UnsubscribeOnSortedCharacterIdsChange(Action handler)
     {
-      charactersSubscribtions -= handler;
+      sortedCharacterIdsSubscribtions -= handler;
     }
   }
 }

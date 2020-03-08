@@ -12,7 +12,7 @@
     public int HpsPercent { get; private set; }
     public string ServerName { get; private set; }
 
-    public IDictionary<string, (int? Dps, int? DpsPercent ,int? Hps, int? HpsPercent)> BestDpsHpsPerEncounter { get; }
+    public IDictionary<string, (int? Dps, int? DpsPercent, int? Hps, int? HpsPercent)> BestDpsHpsPerEncounter { get; }
       = new Dictionary<string, (int? Dps, int? DpsPercent, int? Hps, int? HpsPercent)>();
 
     public WarcraftLogsCharacter(DtoWarcraftLogs[] dpsDto, DtoWarcraftLogs[] hpsDto)

@@ -2,12 +2,13 @@
 {
   using RuthlessBoreasDataContainer.Models;
   using System.Collections.Generic;
+  using System.Threading.Tasks;
 
   public static class ServersData
   {
-    public static IEnumerable<ServerData> Get()
+    public static async Task<IEnumerable<ServerData>> Get()
     {
-      return new ServerData[]
+      return await Task.Run(() => new ServerData[]
       {
         new ServerData()
         {
@@ -39,7 +40,7 @@
           Name = "fordragon",
           RuName = "дракономор"
         }
-      };
+      });
     }
   }
 }

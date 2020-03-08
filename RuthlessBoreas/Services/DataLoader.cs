@@ -16,13 +16,25 @@
     public static void Initialize(HttpClient client)
     {
       Http = client;
-      StorageService.SetServers(ServersData.Get().Select(data => new WowServer(data)));
-      StorageService.Characters = CharactersIdentityData.Get().Select(identity => new Character(identity));
     }
 
     public static async Task<T> GetRequest<T>(string url) where T : class
     {
       return await Http.GetJsonAsync<T>(url);
+    }
+
+    public static async Task LoadInitializeData()
+    {
+      var serversData = ServersData.Get();
+      var charactersData = CharactersIdentityData.Get();
+
+      StorageService.SetServers((await serversData).Select(data => new WowServer(data)));
+      foreach (var identity in await charactersData)
+      {
+        StorageService.AddCharacter(new Character(identity));
+      }
+
+      StorageService.SortedCharacterIds = StorageService.Characters.Select(character => character.Id);
     }
   }
 }

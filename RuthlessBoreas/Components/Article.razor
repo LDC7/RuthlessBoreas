@@ -70,7 +70,9 @@
   private const string ARMORY_LOGO = "images/wowicon.png";
 
   [Parameter]
-  public Character Character { get; set; }
+  public int CharacterId { get; set; }
+
+  private Character Character => StorageService.GetCharacter(this.CharacterId);
 
   protected override async Task OnInitializedAsync()
   {

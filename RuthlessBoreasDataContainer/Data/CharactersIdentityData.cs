@@ -2,12 +2,14 @@
 {
   using RuthlessBoreasDataContainer.Models;
   using System.Collections.Generic;
+  using System.Threading.Tasks;
 
   public static class CharactersIdentityData
   {
-    public static IEnumerable<CharacterIdentity> Get()
+    public static async Task<IEnumerable<CharacterIdentity>> Get()
     {
-      return new CharacterIdentity[] {
+      return await Task.Run(() => new CharacterIdentity[]
+      {
         new CharacterIdentity()
         {
           Id = 1,
@@ -129,7 +131,7 @@
           Region = "eu",
           Main = 17
         }
-      };
+      });
     }
   }
 }

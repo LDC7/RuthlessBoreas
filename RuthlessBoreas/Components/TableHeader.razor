@@ -1,35 +1,35 @@
 ﻿<tr id="table-header">
   <th id="portrait-column"></th>
   <TextHeaderCell Class=@GetColumnClass(1)
-                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(1)))
+                  OnClick=@(new Action(() => SortByName()))
                   Text="Name" />
   <TextHeaderCell Class=@GetColumnClass(2)
-                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(2)))
+                  OnClick=@(new Action(() => OnTableHeaderClickHandler(2, CharacterSortingService.ComparingILvl)))
                   Text="ILvl" />
   <TextHeaderCell Class=@GetColumnClass(3)
-                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(3)))
+                  OnClick=@(new Action(() => OnTableHeaderClickHandler(3, CharacterSortingService.ComparingRaidProgress)))
                   Text="Raid" />
   <ImageHeaderCell Class=@GetColumnClass(4)
-                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(4)))
+                   OnClick=@(new Action(() => OnTableHeaderClickHandler(4, CharacterSortingService.ComparingKeyProgressTank)))
                    Hint="Tank Rio"
                    Source=@ROLE_TANK />
   <ImageHeaderCell Class=@GetColumnClass(5)
-                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(5)))
+                   OnClick=@(new Action(() => OnTableHeaderClickHandler(5, CharacterSortingService.ComparingKeyProgressHeal)))
                    Hint="Heal Rio"
                    Source=@ROLE_HEALER />
   <ImageHeaderCell Class=@GetColumnClass(6)
-                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(6)))
+                   OnClick=@(new Action(() => OnTableHeaderClickHandler(6, CharacterSortingService.ComparingKeyProgressDps)))
                    Hint="Dps Rio"
                    Source=@ROLE_DPS />
   <ImageHeaderCell Class=@GetColumnClass(7)
-                   OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(7)))
+                   OnClick=@(new Action(() => OnTableHeaderClickHandler(7, CharacterSortingService.ComparingKeyProgressAll)))
                    Hint="Rio"
                    Source=@ROLE_ALL />
   <TextHeaderCell Class=@GetColumnClass(8)
-                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(8)))
+                  OnClick=@(new Action(() => OnTableHeaderClickHandler(8, CharacterSortingService.ComparingMaxWeekKey)))
                   Text="Max Week Key" />
   <TextHeaderCell Class=@GetColumnClass(9)
-                  OnClick=@(new Action(() => CharacterSortingService.OnTableHeaderClickHandler(9)))
+                  OnClick=@(new Action(() => OnTableHeaderClickHandler(9, CharacterSortingService.ComparingMaxSeasonKey)))
                   Text="Max Season" />
   <th></th>
 </tr>
@@ -42,9 +42,44 @@
   private const string ROLE_DPS = "images/role_dps.webp";
   private const string ROLE_ALL = "images/flag.webp";
 
+  private static int sortColumnNumber;
+  private static bool ascSorting = false;
+
+  private static void OnTableHeaderClickHandler(int column, Func<Character, bool, int> sortFunc)
+  {
+    ToggleSelectedColumn(column);
+
+    StorageService.SortedCharacterIds = StorageService.Characters
+      .OrderBy(character => sortFunc(character, ascSorting))
+      .Select(character => character.Id);
+  }
+
   private string GetColumnClass(int columnIndex)
   {
-    return CharacterSortingService.SortColumnNumber == columnIndex ? SELECTED_COLUMN_CLASS : COLUMN_CLASS;
+    return sortColumnNumber == columnIndex ? SELECTED_COLUMN_CLASS : COLUMN_CLASS;
+  }
+
+  private static void SortByName()
+  {
+    ToggleSelectedColumn(1);
+
+    var characters = StorageService.Characters
+      .OrderBy(character => character.Name);
+    StorageService.SortedCharacterIds = (ascSorting ? characters : characters.Reverse()).Select(character => character.Id);
+  }
+
+  private static void ToggleSelectedColumn(int column)
+  {
+    if (column == sortColumnNumber)
+    {
+      ascSorting = !ascSorting;
+    }
+    else
+    {
+      sortColumnNumber = column;
+      ascSorting = false;
+
+    }
   }
 }
 

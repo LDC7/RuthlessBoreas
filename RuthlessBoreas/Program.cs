@@ -19,6 +19,7 @@
       var host = builder.Build();
 
       DataLoader.Initialize((HttpClient)host.Services.GetService(typeof(HttpClient)));
+      await DataLoader.LoadInitializeData();
 
       await host.RunAsync();
     }

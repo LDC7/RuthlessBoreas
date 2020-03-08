@@ -1,136 +1,76 @@
 ﻿namespace RuthlessBoreas.Services
 {
   using RuthlessBoreas.Models;
-  using System;
-  using System.Linq;
 
   public static class CharacterSortingService
   {
-    private static bool ascSorting = false;
-
-    public static int SortColumnNumber { get; private set; }
-
-    private static int ComparingILvl(Character c)
+    public static int ComparingILvl(Character c, bool asc)
     {
-      return c.RaiderIo.ItemLevel * (ascSorting ? 1 : -1);
+      return c.RaiderIo.ItemLevel * (asc ? 1 : -1);
     }
 
-    private static int ComparingRaidProgress(Character c)
+    public static int ComparingRaidProgress(Character c, bool asc)
     {
       var difficult = c.RaiderIo.RaidProgress[c.RaiderIo.RaidProgress.Length - 1];
       var progress = int.Parse(c.RaiderIo.RaidProgress.Substring(0, c.RaiderIo.RaidProgress.IndexOf('/')));
       var difficultNum = difficult == 'M' ? 300 : (difficult == 'H' ? 200 : 100);
 
-      return (difficultNum + progress) * (ascSorting ? 1 : -1);
+      return (difficultNum + progress) * (asc ? 1 : -1);
     }
 
-    private static int ComparingKeyProgressTank(Character c)
+    public static int ComparingKeyProgressTank(Character c, bool asc)
     {
       int result;
       if (c.RaiderIo.ScoreTank.HasValue)
-        result = c.RaiderIo.ScoreTank.Value * (ascSorting ? 1 : -1);
+        result = c.RaiderIo.ScoreTank.Value * (asc ? 1 : -1);
       else
         result = 100000;
 
       return result;
     }
 
-    private static int ComparingKeyProgressHeal(Character c)
+    public static int ComparingKeyProgressHeal(Character c, bool asc)
     {
       int result;
       if (c.RaiderIo.ScoreHealer.HasValue)
-        result = c.RaiderIo.ScoreHealer.Value * (ascSorting ? 1 : -1);
+        result = c.RaiderIo.ScoreHealer.Value * (asc ? 1 : -1);
       else
         result = 100000;
 
       return result;
     }
 
-    private static int ComparingKeyProgressDps(Character c)
+    public static int ComparingKeyProgressDps(Character c, bool asc)
     {
-      return c.RaiderIo.ScoreDps * (ascSorting ? 1 : -1);
+      return c.RaiderIo.ScoreDps * (asc ? 1 : -1);
     }
 
-    private static int ComparingKeyProgressAll(Character c)
+    public static int ComparingKeyProgressAll(Character c, bool asc)
     {
-      return c.RaiderIo.ScoreAll * (ascSorting ? 1 : -1);
+      return c.RaiderIo.ScoreAll * (asc ? 1 : -1);
     }
 
-    private static int ComparingKey(Dungeon d)
+    private static int ComparingKey(Dungeon d, bool asc)
     {
       if (d == null)
         return 0;
 
-      return Dungeon.ComparingKey(d) * (ascSorting ? 1 : -1);
+      return Dungeon.ComparingKey(d) * (asc ? 1 : -1);
     }
 
-    private static int ComparingMaxWeekKey(Character c)
+    public static int ComparingMaxWeekKey(Character c, bool asc)
     {
-      return ComparingKey(c.RaiderIo.MaxWeekKey);
+      return ComparingKey(c.RaiderIo.MaxWeekKey, asc);
     }
 
-    private static int ComparingMaxSeasonKey(Character c)
+    public static int ComparingMaxSeasonKey(Character c, bool asc)
     {
-      return ComparingKey(c.RaiderIo.MaxSeasonKey);
+      return ComparingKey(c.RaiderIo.MaxSeasonKey, asc);
     }
 
-    private static int ComparingMainAlt(Character c)
+    public static int ComparingMainAlt(Character c, bool asc)
     {
-      return (c.Main.Id == c.Id ? 1 : -1) * (ascSorting ? 1 : -1);
-    }
-
-    private static void ToggleSelectedColumn(int column)
-    {
-      if (column == SortColumnNumber)
-      {
-        ascSorting = !ascSorting;
-      }
-      else
-      {
-        SortColumnNumber = column;
-        ascSorting = false;
-      }
-    }
-
-    public static void OnTableHeaderClickHandler(int column)
-    {
-      ToggleSelectedColumn(column);
-      Func<Character, int> sortingFunction = null;
-      switch(column)
-      {
-        case 1:
-          if (ascSorting)
-            StorageService.Characters = StorageService.Characters.OrderBy(character => character.Name);
-          else
-            StorageService.Characters = StorageService.Characters.OrderByDescending(character => character.Name);
-          return;
-        case 2:
-          sortingFunction = ComparingILvl;
-          break;
-        case 3:
-          sortingFunction = ComparingRaidProgress;
-          break;
-        case 4:
-          sortingFunction = ComparingKeyProgressTank;
-          break;
-        case 5:
-          sortingFunction = ComparingKeyProgressHeal;
-          break;
-        case 6:
-          sortingFunction = ComparingKeyProgressDps;
-          break;
-        case 7:
-          sortingFunction = ComparingKeyProgressAll;
-          break;
-        case 8:
-          sortingFunction = ComparingMaxWeekKey;
-          break;
-        case 9:
-          sortingFunction = ComparingMaxSeasonKey;
-          break;
-      }
-
-      StorageService.Characters = StorageService.Characters.OrderBy(character => sortingFunction?.Invoke(character));
+      return (c.Main.Id == c.Id ? 1 : -1) * (asc ? 1 : -1);
     }
   }
 }
