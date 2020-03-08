@@ -1,0 +1,19 @@
+﻿<td class="td-cell" style=@this.GetColorStyle() title=@Hint>
+  @this.Text
+</td>
+
+@code {
+  [Parameter]
+  public string Color { get; set; }
+
+  [Parameter]
+  public string Text { get; set; }
+
+  [Parameter]
+  public string Hint { get; set; }
+
+  private string GetColorStyle()
+  {
+    return this.Color != null ? $"color: {this.Color}" : null;
+  }
+}

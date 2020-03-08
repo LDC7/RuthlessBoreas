@@ -1,0 +1,54 @@
+﻿<div class="character-card-side">
+  <img class="character-card-image" src=@this.Char.RaiderIo.Portrait />
+  <span class="character-card-side-data">
+    <span class="character-card-side-data-key">Average Raid DPS:</span>
+    <span class="character-card-side-data-value" style=@this.GetDpsStyle()>@this.Char.WarcraftLogs.AverageDps</span>
+  </span>
+  <span class="character-card-side-data">
+    <span class="character-card-side-data-key">Raid DPS Percent:</span>
+    <span class="character-card-side-data-value" style=@this.GetDpsStyle()>@this.Char.WarcraftLogs.DpsPercent</span>
+  </span>
+  <span class="character-card-side-data">
+    <span class="character-card-side-data-key">Average Raid HPS:</span>
+    <span class="character-card-side-data-value" style=@this.GetHpsStyle()>@this.Char.WarcraftLogs.AverageHps</span>
+  </span>
+  <span class="character-card-side-data">
+    <span class="character-card-side-data-key">Raid HPS Percent:</span>
+    <span class="character-card-side-data-value" style=@this.GetHpsStyle()>@this.Char.WarcraftLogs.HpsPercent</span>
+  </span>
+  <div class="character-card-side-data-placeholder" />
+</div>
+
+@code {
+  [Parameter]
+  public Character Char { get; set; }
+
+  private string GetDpsStyle()
+  {
+    return $"color: {Utils.GetColorPercentage(this.Char.WarcraftLogs.DpsPercent)}";
+  }
+
+  private string GetHpsStyle()
+  {
+    return $"color: {Utils.GetColorPercentage(this.Char.WarcraftLogs.HpsPercent)}";
+  }
+}
+
+<style>
+  .character-card-side {
+    display: flex;
+    flex-direction: column;
+    border-right: solid black 2px;
+    width: 200px;
+  }
+
+  .character-card-side-data {
+    border-bottom: solid black 2px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .character-card-side-data-placeholder {
+    background-color: blue;
+  }
+</style>

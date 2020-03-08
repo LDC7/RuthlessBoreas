@@ -1,0 +1,27 @@
+[
+  {
+    "Id": 1,
+    "Name": "borean-tundra",
+    "RuName": "бореиская-тундра"
+  },
+  {
+    "Id": 2,
+    "Name": "deepholm",
+    "RuName": "подземье"
+  },
+  {
+    "Id": 3,
+    "Name": "azuregos",
+    "RuName": "азурегос"
+  },
+  {
+    "Id": 4,
+    "Name": "gordunni",
+    "RuName": "гордунни"
+  },
+  {
+    "Id": 5,
+    "Name": "fordragon",
+    "RuName": "дракономор"
+  }
+]

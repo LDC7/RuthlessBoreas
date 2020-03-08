@@ -1,0 +1,17 @@
+﻿<th class=@this.Class
+    onclick=@this.OnClick>
+  <img title=@this.Hint src=@this.Source />
+</th>
+
+@code {
+  [Parameter]
+  public string Class { get; set; }  
+  [Parameter]
+  public Action OnClick { get; set; }
+  
+  [Parameter]
+  public string Hint { get; set; }
+  [Parameter]
+  public string Source { get; set; }
+
+}

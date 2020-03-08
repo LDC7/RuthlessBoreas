@@ -1,0 +1,15 @@
+﻿<th class=@this.Class
+    onclick=@this.OnClick>
+  @Text
+</th>
+
+@code {
+  [Parameter]
+  public string Class { get; set; }  
+  [Parameter]
+  public Action OnClick { get; set; }
+  
+  [Parameter]
+  public string Text { get; set; }
+
+}

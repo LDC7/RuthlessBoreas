@@ -1,0 +1,16 @@
+﻿@if (this.Dungeon != null)
+{
+  <ColoredTextCell Text=@this.Dungeon.GetKeyString()
+                   Color=@Utils.GetColorMaxKey(this.Dungeon.KeyLevel.Value)
+                   Hint=@this.Dungeon.GetNameWithTime() />
+}
+else
+{
+  <EmptyCell />
+}
+
+@code {
+  [Parameter]
+  public Dungeon Dungeon { get; set; }
+
+}
