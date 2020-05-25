@@ -20,16 +20,11 @@ else
 
 @code {
   [CascadingParameter]
-  ModalParameters Parameters { get; set; }
-
-  private Character Char { get; set; }
+  private BlazoredModalInstance BlazoredModal { get; set; }
+  [Parameter]
+  public Character Char { get; set; }
 
   private bool IsWarcraftLogsDataLoaded { get; set; }
-
-  protected override void OnInitialized()
-  {
-    this.Char = Parameters.Get<Character>("Char");
-  }
 
   protected override async Task OnInitializedAsync()
   {
@@ -51,7 +46,7 @@ else
 
   private void CloseModal()
   {
-    this.Modal.Close();
+    this.BlazoredModal.Close();
   }
 }
 

@@ -1,10 +1,10 @@
 ﻿namespace RuthlessBoreas.Services
 {
-  using Microsoft.AspNetCore.Components;
   using RuthlessBoreas.Models;
   using RuthlessBoreasDataContainer.Data;
   using System.Linq;
   using System.Net.Http;
+  using System.Net.Http.Json;
   using System.Threading.Tasks;
 
   public static class DataLoader
@@ -20,7 +20,7 @@
 
     public static async Task<T> GetRequest<T>(string url) where T : class
     {
-      return await Http.GetJsonAsync<T>(url);
+      return await Http.GetFromJsonAsync<T>(url);
     }
 
     public static async Task LoadInitializeData()

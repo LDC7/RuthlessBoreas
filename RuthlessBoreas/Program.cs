@@ -1,7 +1,7 @@
 ﻿namespace RuthlessBoreas
 {
   using Blazored.Modal;
-  using Microsoft.AspNetCore.Blazor.Hosting;
+  using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
   using Microsoft.Extensions.DependencyInjection;
   using RuthlessBoreas.Services;
   using System.Net.Http;
@@ -18,6 +18,9 @@
 
       var host = builder.Build();
 
+      foreach (var s in host.Services.GetServices<object>())
+        System.Console.WriteLine(s.ToString());
+
       DataLoader.Initialize((HttpClient)host.Services.GetService(typeof(HttpClient)));
       await DataLoader.LoadInitializeData();
 
@@ -26,6 +29,7 @@
 
     public static void ConfigureServices(IServiceCollection services)
     {
+      services.AddSingleton(new HttpClient());
       services.AddBlazoredModal();
     }
   }
