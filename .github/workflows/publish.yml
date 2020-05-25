@@ -31,7 +31,7 @@ jobs:
           shopt -s extglob
           rm -rf !(publish)
     - name: Copy
-      run: cp -a ./publish/RuthlessBoreas/dist/. ./
+      run: cp -a ./publish/wwwroot/. ./
 
     - name: Delete publish folder
       run: rm -rf /publish/
