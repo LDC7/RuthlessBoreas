@@ -1,0 +1,52 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    - name: Build with dotnet
+      run: dotnet publish RuthlessBoreas/RuthlessBoreas.csproj -c Release -o ./publish
+
+    - name: Switch to gh-pages
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        clean: false
+
+    - name: Clear
+      run: |
+          shopt -s extglob
+          rm -rf !(publish)
+    - name: Copy
+      run: cp -a ./publish/RuthlessBoreas/dist/. ./
+
+    - name: Delete publish folder
+      run: rm -rf /publish/
+
+    - name: Edit BaseRoot
+      run: sed -i "s|<base href=\"/\" />*|<base href=\"/$homeroot/\" />|" index.html
+      env:
+          homeroot: RuthlessBoreas
+
+    - name: Commit and Push
+      run: |
+          git config --global user.email "${GITHUB_ACTOR}@https://users.noreply.github.com/"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git add --all
+          git commit -m "Update"
+          git push
