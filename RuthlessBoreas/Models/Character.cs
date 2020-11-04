@@ -25,6 +25,7 @@
     public string ArmoryProfileUrl { get; private set; }
 
     public RioCharacter RaiderIo { get; private set; }
+    public bool IsEmpty { get; private set; }
     public bool IsWarcraftLogsDataLoaded { get; private set; }
     public WarcraftLogsCharacter WarcraftLogs { get; private set; }
 
@@ -60,8 +61,24 @@
 
     public async Task LoadRioData()
     {
-      var rioDto = await DataLoader.GetRequest<DtoRaiderIo>(this.RioDataUrl);
-      this.RaiderIo = new RioCharacter(rioDto);
+      var cacheKey = $"RioCache{this.Id}";
+      RioDataCache cache = null;
+      if (await StorageService.LocalStorage.ContainKeyAsync(cacheKey))
+        cache = await StorageService.LocalStorage.GetItemAsync<RioDataCache>(cacheKey);
+
+      if (cache == null || cache.DateTime.Subtract(DateTime.UtcNow) > TimeSpan.FromDays(1))
+      {
+        var rioDto = await DataLoader.GetRequest<DtoRaiderIo>(this.RioDataUrl);
+        cache = new RioDataCache()
+        {
+          DateTime = DateTime.UtcNow,
+          RioDto = rioDto
+        };
+        StorageService.LocalStorage.SetItemAsync(cacheKey, cache).ConfigureAwait(false);
+      }
+
+      this.RaiderIo = new RioCharacter(cache.RioDto);
+      this.IsEmpty = this.RaiderIo.ScoreAll == 0 && this.RaiderIo.RaidProgress.StartsWith("0");
     }
 
     public async Task LoadWarcraftLogsData()

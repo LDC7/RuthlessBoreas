@@ -1,5 +1,6 @@
 ﻿namespace RuthlessBoreas.Services
 {
+  using Blazored.LocalStorage;
   using RuthlessBoreas.Models;
   using System;
   using System.Collections.Generic;
@@ -13,7 +14,7 @@
 
     public static IEnumerable<int> SortedCharacterIds
     {
-      get => FilterCharacters(sortedCharacterIds);
+      get => sortedCharacterIds;
       set
       {
         sortedCharacterIds = value;
@@ -26,6 +27,8 @@
     public static IEnumerable<Character> Characters => characters;
 
     public static IEnumerable<WowServer> Servers { get; private set; }
+
+    public static ILocalStorageService LocalStorage { get; set; }
 
     public static void SetServers(IEnumerable<WowServer> servers)
     {
@@ -49,14 +52,6 @@
     public static void UnsubscribeOnSortedCharacterIdsChange(Action handler)
     {
       sortedCharacterIdsSubscribtions -= handler;
-    }
-
-    private static IEnumerable<int> FilterCharacters(IEnumerable<int> ids)
-    {
-      return ids.Select(id => GetCharacter(id))
-        .Where(character => character.RaiderIo == null || character.RaiderIo.ScoreAll > 0 || !character.RaiderIo.RaidProgress.StartsWith("0"))
-        .Select(character => character.Id)
-        .ToArray();
     }
   }
 }

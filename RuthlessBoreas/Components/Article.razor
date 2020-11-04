@@ -1,6 +1,6 @@
 ﻿@inject IModalService Modal
 
-<tr>
+<tr style=@CheckEmptyStyle()>
   @if (this.Character.RaiderIo != null)
   {
     <PortraitCell Url=@this.Character.RaiderIo.Portrait />
@@ -98,6 +98,12 @@
     var fontStyle = this.Character.Main.Id == this.Character.Id ? "bold" : "italic";
     var classColor = this.Character.RaiderIo != null ? $"color: {Utils.GetColorClass(this.Character.RaiderIo.Class)};" : string.Empty;
     return $"{classColor} font-style: {fontStyle}";
+  }
+
+  private string CheckEmptyStyle()
+  {
+    var display = this.Character.IsEmpty ? "none" : "table-row";
+    return $"display: {display}";
   }
 }
 
