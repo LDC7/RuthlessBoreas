@@ -8,7 +8,7 @@
   {
     public static async Task<IEnumerable<CharacterIdentity>> Get()
     {
-      return await Task.Run(() => new CharacterIdentity[]
+      return await Task.FromResult(new CharacterIdentity[]
       {
         new CharacterIdentity()
         {
@@ -130,6 +130,55 @@
           Realm = 1,
           Region = "eu",
           Main = 17
+        },
+        new CharacterIdentity(){
+          Id = 18,
+          Name = "Орвента",
+          Realm = 4,
+          Region = "eu",
+          Main = 1
+        },
+        new CharacterIdentity(){
+          Id = 19,
+          Name = "Деленэль",
+          Realm = 4,
+          Region = "eu",
+          Main = 10
+        },
+        new CharacterIdentity(){
+          Id = 20,
+          Name = "Инотра",
+          Realm = 4,
+          Region = "eu",
+          Main = 13
+        },
+        new CharacterIdentity(){
+          Id = 21,
+          Name = "Касирия",
+          Realm = 4,
+          Region = "eu",
+          Main = 8
+        },
+        new CharacterIdentity(){
+          Id = 22,
+          Name = "Фэллсорд",
+          Realm = 4,
+          Region = "eu",
+          Main = 8
+        },
+        new CharacterIdentity(){
+          Id = 23,
+          Name = "Ралус",
+          Realm = 4,
+          Region = "eu",
+          Main = 8
+        },
+        new CharacterIdentity(){
+          Id = 24,
+          Name = "Невека",
+          Realm = 4,
+          Region = "eu",
+          Main = 8
         }
       });
     }
