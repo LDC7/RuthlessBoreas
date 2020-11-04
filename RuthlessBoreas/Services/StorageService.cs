@@ -13,7 +13,7 @@
 
     public static IEnumerable<int> SortedCharacterIds
     {
-      get => sortedCharacterIds;
+      get => FilterCharacters(sortedCharacterIds);
       set
       {
         sortedCharacterIds = value;
@@ -49,6 +49,14 @@
     public static void UnsubscribeOnSortedCharacterIdsChange(Action handler)
     {
       sortedCharacterIdsSubscribtions -= handler;
+    }
+
+    private static IEnumerable<int> FilterCharacters(IEnumerable<int> ids)
+    {
+      return ids.Select(id => GetCharacter(id))
+        .Where(character => character.RaiderIo == null || character.RaiderIo.ScoreAll > 0 || !character.RaiderIo.RaidProgress.StartsWith("0"))
+        .Select(character => character.Id)
+        .ToArray();
     }
   }
 }
