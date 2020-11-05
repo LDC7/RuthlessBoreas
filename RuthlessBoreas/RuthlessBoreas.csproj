@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-    <AssemblyVersion>1.0.4.7</AssemblyVersion>
-    <FileVersion>1.0.4.7</FileVersion>
-    <Version>2.0.8</Version>
+    <AssemblyVersion>1.0.4.8</AssemblyVersion>
+    <FileVersion>1.0.4.8</FileVersion>
+    <Version>2.0.9</Version>
     <Authors>BoreanCrew</Authors>
     <Company>BoreanCrew</Company>
     <ApplicationIcon />
