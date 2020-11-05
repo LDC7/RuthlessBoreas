@@ -66,7 +66,7 @@
       if (await StorageService.LocalStorage.ContainKeyAsync(cacheKey))
         cache = await StorageService.LocalStorage.GetItemAsync<RioDataCache>(cacheKey);
 
-      if (cache == null || cache.DateTime.Subtract(DateTime.UtcNow) > TimeSpan.FromDays(1))
+      if (cache == null || DateTime.UtcNow.Subtract(cache.DateTime) > TimeSpan.FromHours(1))
       {
         var rioDto = await DataLoader.GetRequest<DtoRaiderIo>(this.RioDataUrl);
         cache = new RioDataCache()
