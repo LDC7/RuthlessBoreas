@@ -179,6 +179,13 @@
           Realm = 4,
           Region = "eu",
           Main = 8
+        },
+        new CharacterIdentity(){
+          Id = 25,
+          Name = "Иотире",
+          Realm = 4,
+          Region = "eu",
+          Main = 10
         }
       });
     }
