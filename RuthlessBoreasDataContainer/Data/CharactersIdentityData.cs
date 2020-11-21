@@ -22,7 +22,7 @@
         {
           Id = 2,
           Name = "Айронделль",
-          Realm = 1,
+          Realm = 4,
           Region = "eu",
           Main = 2
         },
@@ -70,8 +70,8 @@
         },
         new CharacterIdentity(){
           Id = 9,
-          Name = "Раллин",
-          Realm = 1,
+          Name = "Инралл",
+          Realm = 4,
           Region = "eu",
           Main = 9
         },
@@ -186,6 +186,41 @@
           Realm = 4,
           Region = "eu",
           Main = 10
+        },
+        new CharacterIdentity(){
+          Id = 26,
+          Name = "Элэйна",
+          Realm = 4,
+          Region = "eu",
+          Main = 10
+        },
+        new CharacterIdentity(){
+          Id = 27,
+          Name = "Мальтейра",
+          Realm = 4,
+          Region = "eu",
+          Main = 6
+        },
+        new CharacterIdentity(){
+          Id = 28,
+          Name = "Торрал",
+          Realm = 4,
+          Region = "eu",
+          Main = 3
+        },
+        new CharacterIdentity(){
+          Id = 29,
+          Name = "Кранод",
+          Realm = 4,
+          Region = "eu",
+          Main = 8
+        },
+        new CharacterIdentity(){
+          Id = 30,
+          Name = "Наали",
+          Realm = 4,
+          Region = "eu",
+          Main = 17
         }
       });
     }
