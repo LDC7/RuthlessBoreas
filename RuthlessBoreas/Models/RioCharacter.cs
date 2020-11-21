@@ -31,7 +31,7 @@
       this.ScoreDps = (int)score.Dps;
       this.ScoreHealer = Utils.CanHeal(this.Class) ? (int?)score.Healer : null;
       this.ScoreTank = Utils.CanTank(this.Class) ? (int?)score.Tank : null;
-      this.RaidProgress = dto.Raid_progression[RaidData.LAST_RAID].Summary;
+      this.RaidProgress = dto.Raid_progression.ContainsKey(RaidData.LAST_RAID) ? dto.Raid_progression[RaidData.LAST_RAID].Summary : null;
 
       if (dto.Mythic_plus_weekly_highest_level_runs.Length > 0)
       {

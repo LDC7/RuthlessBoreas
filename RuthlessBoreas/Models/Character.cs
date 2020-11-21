@@ -78,7 +78,7 @@
       }
 
       this.RaiderIo = new RioCharacter(cache.RioDto);
-      this.IsEmpty = this.RaiderIo.ScoreAll == 0 && this.RaiderIo.RaidProgress.StartsWith("0");
+      this.IsEmpty = this.RaiderIo.ScoreAll == 0 && (this.RaiderIo.RaidProgress == null || this.RaiderIo.RaidProgress.StartsWith("0"));
     }
 
     public async Task LoadWarcraftLogsData()
