@@ -1,10 +1,13 @@
 ﻿@foreach (var id in StorageService.SortedCharacterIds)
 {
-  <Article CharacterId=@id />
+  <Article CharacterId=@id GlobalFilter=@this.GlobalFilter/>
 }
 
 @code {
   private bool isSubscribed;
+
+  [Parameter]
+  public GlobalFilter GlobalFilter { get; set; }
 
   protected override void OnInitialized()
   {

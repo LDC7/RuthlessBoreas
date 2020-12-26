@@ -2,17 +2,67 @@
 
 <div id="app">
   <div id="app-header">
-    <h3>Безжалостный Борей</h3>
+    <h3 style=@this.CheckHighlightStyle(GlobalFilter.ALL) onclick=@this.CommunityClickHandler>Безжалостный Борей</h3>
+    <h3 style=@this.CheckHighlightStyle(GlobalFilter.GUILD) onclick=@this.GuildClickHandler>Тайны подвала ШРУ</h3>
   </div>
-    <table id="app-table">
-      <TableHeader />
-      <TableData />
-    </table>  
+  <table id="app-table">
+    <TableHeader />
+    <TableData GlobalFilter=@GlobalFilter />
+  </table>
   <div id="footer-message">
     <span>Если кого-то не хватает - напишите Менелосу</span>
     <span>Предложения по улучшению - тоже к Менелосу</span>
   </div>
 </div>
+
+@code {
+  private static Action OnGlobalFilterChange;
+
+  private static GlobalFilter globalFilter = GlobalFilter.ALL;
+
+  private static GlobalFilter GlobalFilter
+  {
+    get
+    {
+      return globalFilter;
+    }
+    set
+    {
+      if (globalFilter != value)
+      {
+        globalFilter = value;
+        OnGlobalFilterChange?.Invoke();
+      }
+    }
+  }
+
+  private bool isSubscribed;
+
+  protected override void OnInitialized()
+  {
+    if (!this.isSubscribed)
+    {
+      OnGlobalFilterChange += this.StateHasChanged;
+      this.isSubscribed = true;
+    }
+  }
+
+  private Action CommunityClickHandler = new Action(() =>
+  {
+    GlobalFilter = GlobalFilter.ALL;
+  });
+
+  private Action GuildClickHandler = new Action(() =>
+  {
+    GlobalFilter = GlobalFilter.GUILD;
+  });
+
+  private string CheckHighlightStyle(GlobalFilter filter)
+  {
+    var weight = GlobalFilter == filter ? "bold" : "normal";
+    return $"font-weight: {weight};";
+  }
+}
 
 <style>
   #app {
@@ -31,11 +81,14 @@
     color: #69f;
     font-size: 36px;
     user-select: none;
+    align-items: center;
+    justify-content: space-between;
   }
 
     #app-header h3 {
       align-self: center;
-      margin-left: 40px;
+      margin: 0 40px;
+      cursor: pointer;
     }
 
   #app-table {

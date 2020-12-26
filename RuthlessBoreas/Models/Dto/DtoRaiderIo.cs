@@ -18,6 +18,7 @@
     public string Realm { get; set; }
     public string Profile_url { get; set; }
     public string Profile_banner { get; set; }
+    public DtoRaiderIoGuild Guild { get; set; }
     public DtoRaiderIoSeason[] Mythic_plus_scores_by_season { get; set; }
     public DtoRaiderIoDungeon[] Mythic_plus_highest_level_runs { get; set; }
     public DtoRaiderIoDungeon[] Mythic_plus_weekly_highest_level_runs { get; set; }

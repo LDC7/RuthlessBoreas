@@ -7,6 +7,7 @@
 
   public class RioCharacter
   {
+    public string Guild { get; }
     public string Class { get; }
     public string Portrait { get; }
     public string RioProfile { get; }
@@ -22,6 +23,7 @@
 
     public RioCharacter(DtoRaiderIo dto)
     {
+      this.Guild = dto.Guild?.Name;
       this.Class = dto.Class;
       this.Portrait = dto.Thumbnail_url;
       this.RioProfile = dto.Profile_url;

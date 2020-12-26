@@ -1,6 +1,6 @@
 ﻿@inject IModalService Modal
 
-<tr style=@CheckEmptyStyle()>
+<tr style=@this.CheckHideStyle()>
   @if (this.Character.RaiderIo != null)
   {
     <PortraitCell Url=@this.Character.RaiderIo.Portrait />
@@ -71,6 +71,8 @@
 
   [Parameter]
   public int CharacterId { get; set; }
+  [Parameter]
+  public GlobalFilter GlobalFilter { get; set; }
 
   private Character Character => StorageService.GetCharacter(this.CharacterId);
 
@@ -100,9 +102,12 @@
     return $"{classColor} font-style: {fontStyle}";
   }
 
-  private string CheckEmptyStyle()
+  private string CheckHideStyle()
   {
-    var display = this.Character.IsEmpty ? "none" : "table-row";
+    var character = this.Character;
+    var isHidden = character.IsEmpty ||
+      (this.GlobalFilter == GlobalFilter.GUILD && character.RaiderIo?.Guild != RuthlessBoreasDataContainer.Data.GuildData.GUILD_NAME);
+    var display = isHidden ? "none" : "table-row";
     return $"display: {display}";
   }
 }

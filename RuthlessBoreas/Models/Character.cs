@@ -47,7 +47,7 @@
 
     private void SetProfileUrls()
     {
-      var fields = "gear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent%2Cmythic_plus_weekly_highest_level_runs%2Cmythic_plus_highest_level_runs";
+      var fields = "guild%2Cgear%2Craid_progression%2Cmythic_plus_scores_by_season%3Acurrent%2Cmythic_plus_weekly_highest_level_runs%2Cmythic_plus_highest_level_runs";
       var name = HttpUtility.UrlEncode(this.Name);
       this.RioDataUrl = $"https://raider.io/api/v1/characters/profile?region={this.Region}&realm={this.Server.Name}&name={name}&fields={fields}";
 
