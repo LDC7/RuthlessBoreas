@@ -1,0 +1,29 @@
+﻿::deep #table-header {
+  height: 50px;
+  background-color: rgb(0, 0, 0);
+  padding: 0;
+  user-select: none;
+}
+
+  ::deep #table-header th {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border: 4px;
+    border-style: solid;
+    border-bottom-width: thick;
+    border-color: rgb(0, 0, 0);
+  }
+
+::deep .table-header-sort-column {
+  cursor: pointer;
+}
+
+::deep .table-header-sort-column-selected {
+  cursor: pointer;
+  border-bottom-color: rgb(128, 128, 128) !important;
+}
+
+::deep #portrait-column {
+  width: 50px;
+}

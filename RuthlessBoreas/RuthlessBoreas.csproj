@@ -7,7 +7,16 @@
     <Version>2.1.0</Version>
     <Authors>BoreanCrew</Authors>
     <Company>BoreanCrew</Company>
+    <DisableScopedCssBundling>false</DisableScopedCssBundling>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\MainLayout.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Shared\MainLayout.razor.css" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />

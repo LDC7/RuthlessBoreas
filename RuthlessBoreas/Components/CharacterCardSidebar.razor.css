@@ -1,0 +1,16 @@
+﻿.character-card-side {
+  display: flex;
+  flex-direction: column;
+  border-right: solid black 2px;
+  width: 200px;
+}
+
+.character-card-side-data {
+  border-bottom: solid black 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.character-card-side-data-placeholder {
+  background-color: blue;
+}

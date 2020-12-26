@@ -1,0 +1,16 @@
+﻿.character-card-content-table {
+  font-size: 14px;
+  width: 500px;
+}
+
+  .character-card-content-table tr {
+    height: 20px;
+  }
+
+.character-card-content-table-row-cell {
+  border-bottom: 1px solid black !important;
+}
+
+.character-card-content-table-value {
+  text-align: center;
+}

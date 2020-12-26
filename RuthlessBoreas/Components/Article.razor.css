@@ -1,0 +1,24 @@
+﻿::deep .article-image {
+  height: 100%;
+  border-width: 0;
+  border-style: solid;
+  border-right-width: 2px;
+  border-color: rgb(0, 0, 0);
+}
+
+::deep .article-link-img {
+  height: 25px;
+}
+
+::deep .char-name-span {
+  cursor: pointer;
+}
+
+::deep .td-cell {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  height: 50px;
+  user-select: none;
+}
