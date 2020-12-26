@@ -63,8 +63,9 @@
     {
       var cacheKey = $"RioCache{this.Id}";
       RioDataCache cache = null;
-      if (await StorageService.LocalStorage.ContainKeyAsync(cacheKey))
-        cache = await StorageService.LocalStorage.GetItemAsync<RioDataCache>(cacheKey);
+      if (await StorageService.IsLocalStorageCacheValid.ConfigureAwait(false) &&
+        await StorageService.LocalStorage.ContainKeyAsync(cacheKey).ConfigureAwait(false))
+        cache = await StorageService.LocalStorage.GetItemAsync<RioDataCache>(cacheKey).ConfigureAwait(false);
 
       if (cache == null || DateTime.UtcNow.Subtract(cache.DateTime) > TimeSpan.FromHours(1))
       {

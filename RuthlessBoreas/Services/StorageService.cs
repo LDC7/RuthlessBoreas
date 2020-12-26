@@ -5,6 +5,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Reflection;
+  using System.Threading.Tasks;
 
   public static class StorageService
   {
@@ -30,6 +32,9 @@
 
     public static ILocalStorageService LocalStorage { get; set; }
 
+    private static readonly Lazy<Task<bool>> isLocalStorageCacheValid = new Lazy<Task<bool>>(CheckCacheAssemblyVersion);
+    public static Task<bool> IsLocalStorageCacheValid => isLocalStorageCacheValid.Value;
+
     public static void SetServers(IEnumerable<WowServer> servers)
     {
       Servers = servers;
@@ -52,6 +57,21 @@
     public static void UnsubscribeOnSortedCharacterIdsChange(Action handler)
     {
       sortedCharacterIdsSubscribtions -= handler;
+    }
+
+    private async static Task<bool> CheckCacheAssemblyVersion()
+    {
+      var cacheKey = "AssemblyVersion";
+      var currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+      if (await LocalStorage.ContainKeyAsync(cacheKey).ConfigureAwait(false))
+      {
+        var cacheVersion = await LocalStorage.GetItemAsync<string>(cacheKey).ConfigureAwait(false);
+        if (currentVersion == cacheVersion)
+          return true;
+      }
+
+      LocalStorage.SetItemAsync(cacheKey, currentVersion).ConfigureAwait(false);
+      return false;
     }
   }
 }
