@@ -2,6 +2,6 @@
 {
   public static class RaidData
   {
-    public const string LAST_RAID = "nyalotha-the-waking-city";
+    public const string LAST_RAID = "castle-nathria";
   }
 }
