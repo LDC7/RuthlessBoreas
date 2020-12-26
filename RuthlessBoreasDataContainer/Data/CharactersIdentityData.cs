@@ -221,6 +221,34 @@
           Realm = 4,
           Region = "eu",
           Main = 17
+        },
+        new CharacterIdentity(){
+          Id = 31,
+          Name = "Внайт",
+          Realm = 4,
+          Region = "eu",
+          Main = 31
+        },
+        new CharacterIdentity(){
+          Id = 32,
+          Name = "Сумонька",
+          Realm = 4,
+          Region = "eu",
+          Main = 32
+        },
+        new CharacterIdentity(){
+          Id = 33,
+          Name = "Сундейл",
+          Realm = 4,
+          Region = "eu",
+          Main = 33
+        },
+        new CharacterIdentity(){
+          Id = 34,
+          Name = "Кельданат",
+          Realm = 4,
+          Region = "eu",
+          Main = 34
         }
       });
     }
