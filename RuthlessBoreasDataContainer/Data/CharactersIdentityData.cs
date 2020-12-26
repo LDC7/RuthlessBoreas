@@ -113,7 +113,7 @@
         new CharacterIdentity(){
           Id = 15,
           Name = "Аллэргия",
-          Realm = 5,
+          Realm = 4,
           Region = "eu",
           Main = 10
         },
@@ -189,7 +189,7 @@
         },
         new CharacterIdentity(){
           Id = 26,
-          Name = "Элэйна",
+          Name = "Элаэйна",
           Realm = 4,
           Region = "eu",
           Main = 10
