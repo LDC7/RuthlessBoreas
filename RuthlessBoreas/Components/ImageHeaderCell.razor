@@ -1,14 +1,13 @@
-﻿<th class=@this.Class
-    onclick=@this.OnClick>
-  <img class="header-cell-image" title=@this.Hint src=@this.Source />
+﻿<th class=@this.Class>
+  <img class="header-cell-image" title=@this.Hint onclick=@this.OnClick style=@(this.OnClick != null ? "cursor: pointer" : null) src=@this.Source />
 </th>
 
 @code {
   [Parameter]
-  public string Class { get; set; }  
+  public string Class { get; set; }
   [Parameter]
   public Action OnClick { get; set; }
-  
+
   [Parameter]
   public string Hint { get; set; }
   [Parameter]

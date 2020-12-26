@@ -1,6 +1,5 @@
-﻿<th class=@this.Class
-    onclick=@this.OnClick>
-  @Text
+﻿<th class=@this.Class>
+  <span style=@(this.OnClick != null ? "cursor: pointer" : null) onclick=@this.OnClick>@Text</span>
 </th>
 
 @code {

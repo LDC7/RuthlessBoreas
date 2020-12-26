@@ -1,6 +1,6 @@
 @page "/"
 
-<div id="app">
+<main id="app">
   <div id="app-header">
     <h3 style=@this.CheckHighlightStyle(GlobalFilter.ALL) onclick=@this.CommunityClickHandler>Безжалостный Борей</h3>
     <h3 style=@this.CheckHighlightStyle(GlobalFilter.GUILD) onclick=@this.GuildClickHandler>Тайны подвала ШРУ</h3>
@@ -9,11 +9,7 @@
     <TableHeader />
     <TableData GlobalFilter=@GlobalFilter />
   </table>
-  <div id="footer-message">
-    <span>Если кого-то не хватает - напишите Менелосу</span>
-    <span>Предложения по улучшению - тоже к Менелосу</span>
-  </div>
-</div>
+</main>
 
 @code {
   private static Action OnGlobalFilterChange;

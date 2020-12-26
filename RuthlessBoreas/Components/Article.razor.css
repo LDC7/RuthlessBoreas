@@ -1,4 +1,8 @@
-﻿::deep .article-image {
+﻿::deep td:nth-child(2) {
+  padding-left: 25px;  
+}
+
+::deep .article-image {
   height: 100%;
   border-width: 0;
   border-style: solid;
