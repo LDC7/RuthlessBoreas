@@ -15,7 +15,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1.4.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
 
     - name: Build with dotnet
       run: dotnet publish RuthlessBoreas/RuthlessBoreas.csproj -c Release -o ./publish
