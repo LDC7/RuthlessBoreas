@@ -238,10 +238,10 @@
         },
         new CharacterIdentity(){
           Id = 33,
-          Name = "Сундейл",
+          Name = "Твилька",
           Realm = 4,
           Region = "eu",
-          Main = 33
+          Main = 31
         },
         new CharacterIdentity(){
           Id = 34,
@@ -249,6 +249,27 @@
           Realm = 4,
           Region = "eu",
           Main = 34
+        },
+        new CharacterIdentity(){
+          Id = 35,
+          Name = "Бимори",
+          Realm = 4,
+          Region = "eu",
+          Main = 35
+        },
+        new CharacterIdentity(){
+          Id = 36,
+          Name = "Линаико",
+          Realm = 4,
+          Region = "eu",
+          Main = 36
+        },
+        new CharacterIdentity(){
+          Id = 37,
+          Name = "Торральд",
+          Realm = 4,
+          Region = "eu",
+          Main = 37
         }
       });
     }
