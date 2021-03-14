@@ -38,7 +38,7 @@
           Name = "Данамеби",
           Realm = 1,
           Region = "eu",
-          Main = 16
+          Main = 4
         },
         new CharacterIdentity(){
           Id = 5,
@@ -122,7 +122,7 @@
           Name = "Зирель",
           Realm = 1,
           Region = "eu",
-          Main = 16
+          Main = 4
         },
         new CharacterIdentity(){
           Id = 17,
@@ -305,6 +305,13 @@
           Realm = 4,
           Region = "eu",
           Main = 42
+        },
+        new CharacterIdentity(){
+          Id = 43,
+          Name = "Данамеби",
+          Realm = 4,
+          Region = "eu",
+          Main = 4
         }
       });
     }
