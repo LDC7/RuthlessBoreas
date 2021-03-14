@@ -280,7 +280,7 @@
         },
         new CharacterIdentity(){
           Id = 39,
-          Name = "Мрачныймеч",
+          Name = "Баласи",
           Realm = 4,
           Region = "eu",
           Main = 39

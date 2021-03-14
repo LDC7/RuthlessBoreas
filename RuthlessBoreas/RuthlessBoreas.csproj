@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyVersion>1.0.5.4</AssemblyVersion>
     <FileVersion>1.0.5.4</FileVersion>
-    <Version>2.1.5</Version>
+    <Version>2.1.6</Version>
     <Authors>BoreanCrew</Authors>
     <Company>BoreanCrew</Company>
     <DisableScopedCssBundling>false</DisableScopedCssBundling>
