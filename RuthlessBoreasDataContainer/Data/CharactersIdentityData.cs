@@ -1,8 +1,8 @@
 ﻿namespace RuthlessBoreasDataContainer.Data
 {
-  using RuthlessBoreasDataContainer.Models;
   using System.Collections.Generic;
   using System.Threading.Tasks;
+  using RuthlessBoreasDataContainer.Models;
 
   public static class CharactersIdentityData
   {

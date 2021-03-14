@@ -1,12 +1,12 @@
 ﻿namespace RuthlessBoreas.Services
 {
-  using Blazored.LocalStorage;
-  using RuthlessBoreas.Models;
   using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
   using System.Threading.Tasks;
+  using Blazored.LocalStorage;
+  using RuthlessBoreas.Models;
 
   public static class StorageService
   {
@@ -54,6 +54,7 @@
     {
       sortedCharacterIdsSubscribtions += handler;
     }
+
     public static void UnsubscribeOnSortedCharacterIdsChange(Action handler)
     {
       sortedCharacterIdsSubscribtions -= handler;

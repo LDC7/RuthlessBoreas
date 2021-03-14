@@ -1,7 +1,7 @@
 ﻿namespace RuthlessBoreas.Models
 {
-  using RuthlessBoreas.Models.Dto;
   using System;
+  using RuthlessBoreas.Models.Dto;
 
   public class RioDataCache
   {

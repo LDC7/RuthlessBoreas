@@ -1,7 +1,7 @@
 ﻿namespace RuthlessBoreas.Services
 {
-  using RuthlessBoreasDataContainer.Data;
   using System.Linq;
+  using RuthlessBoreasDataContainer.Data;
 
   public static class Utils
   {

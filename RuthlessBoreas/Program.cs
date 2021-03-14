@@ -1,13 +1,13 @@
 ﻿namespace RuthlessBoreas
 {
+  using System.Linq;
+  using System.Net.Http;
+  using System.Threading.Tasks;
   using Blazored.LocalStorage;
   using Blazored.Modal;
   using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
   using Microsoft.Extensions.DependencyInjection;
   using RuthlessBoreas.Services;
-  using System.Linq;
-  using System.Net.Http;
-  using System.Threading.Tasks;
 
   public class Program
   {
@@ -19,9 +19,6 @@
       ConfigureServices(builder.Services);
 
       var host = builder.Build();
-
-      foreach (var s in host.Services.GetServices<object>())
-        System.Console.WriteLine(s.ToString());
 
       StorageService.LocalStorage = host.Services.GetServices<ILocalStorageService>().Single();
       DataLoader.Initialize((HttpClient)host.Services.GetService(typeof(HttpClient)));

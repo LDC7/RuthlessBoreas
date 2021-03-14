@@ -1,12 +1,12 @@
 ﻿namespace RuthlessBoreas.Models
 {
-  using RuthlessBoreas.Models.Dto;
-  using RuthlessBoreas.Services;
-  using RuthlessBoreasDataContainer.Models;
   using System;
   using System.Linq;
   using System.Threading.Tasks;
   using System.Web;
+  using RuthlessBoreas.Models.Dto;
+  using RuthlessBoreas.Services;
+  using RuthlessBoreasDataContainer.Models;
 
   public class Character
   {

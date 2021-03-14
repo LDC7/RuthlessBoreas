@@ -1,8 +1,8 @@
 ﻿namespace RuthlessBoreas.Models
 {
-  using RuthlessBoreas.Models.Dto;
   using System.Collections.Generic;
   using System.Linq;
+  using RuthlessBoreas.Models.Dto;
 
   public class WarcraftLogsCharacter
   {

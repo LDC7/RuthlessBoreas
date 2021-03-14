@@ -1,11 +1,11 @@
 ﻿namespace RuthlessBoreas.Services
 {
-  using RuthlessBoreas.Models;
-  using RuthlessBoreasDataContainer.Data;
   using System.Linq;
   using System.Net.Http;
   using System.Net.Http.Json;
   using System.Threading.Tasks;
+  using RuthlessBoreas.Models;
+  using RuthlessBoreasDataContainer.Data;
 
   public static class DataLoader
   {

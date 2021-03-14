@@ -1,9 +1,9 @@
 ﻿namespace RuthlessBoreas.Models
 {
+  using System.Linq;
   using RuthlessBoreas.Models.Dto;
   using RuthlessBoreas.Services;
   using RuthlessBoreasDataContainer.Data;
-  using System.Linq;
 
   public class RioCharacter
   {
