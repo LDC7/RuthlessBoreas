@@ -270,6 +270,41 @@
           Realm = 4,
           Region = "eu",
           Main = 37
+        },
+        new CharacterIdentity(){
+          Id = 38,
+          Name = "Тариа",
+          Realm = 4,
+          Region = "eu",
+          Main = 38
+        },
+        new CharacterIdentity(){
+          Id = 39,
+          Name = "Мрачныймеч",
+          Realm = 4,
+          Region = "eu",
+          Main = 39
+        },
+        new CharacterIdentity(){
+          Id = 40,
+          Name = "Агилок",
+          Realm = 4,
+          Region = "eu",
+          Main = 40
+        },
+        new CharacterIdentity(){
+          Id = 41,
+          Name = "Рубируби",
+          Realm = 4,
+          Region = "eu",
+          Main = 41
+        },
+        new CharacterIdentity(){
+          Id = 42,
+          Name = "Простодимка",
+          Realm = 4,
+          Region = "eu",
+          Main = 42
         }
       });
     }

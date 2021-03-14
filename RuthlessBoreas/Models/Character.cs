@@ -70,16 +70,19 @@
       if (cache == null || DateTime.UtcNow.Subtract(cache.DateTime) > TimeSpan.FromHours(1))
       {
         var rioDto = await DataLoader.GetRequest<DtoRaiderIo>(this.RioDataUrl);
-        cache = new RioDataCache()
+        if (rioDto != null)
         {
-          DateTime = DateTime.UtcNow,
-          RioDto = rioDto
-        };
-        StorageService.LocalStorage.SetItemAsync(cacheKey, cache).ConfigureAwait(false);
+          cache = new RioDataCache()
+          {
+            DateTime = DateTime.UtcNow,
+            RioDto = rioDto
+          };
+          StorageService.LocalStorage.SetItemAsync(cacheKey, cache).ConfigureAwait(false);
+        }
       }
 
-      this.RaiderIo = new RioCharacter(cache.RioDto);
-      this.IsEmpty = this.RaiderIo.ScoreAll == 0 && (this.RaiderIo.RaidProgress == null || this.RaiderIo.RaidProgress.StartsWith("0"));
+      this.RaiderIo = cache != null ? new RioCharacter(cache.RioDto) : null;
+      this.IsEmpty = this.RaiderIo == null || (this.RaiderIo.ScoreAll == 0 && (this.RaiderIo.RaidProgress == null || this.RaiderIo.RaidProgress.StartsWith("0")));
     }
 
     public async Task LoadWarcraftLogsData()

@@ -49,6 +49,7 @@
     ToggleSelectedColumn(column);
 
     StorageService.SortedCharacterIds = StorageService.Characters
+      .Where(character => !character.IsEmpty)
       .OrderBy(character => sortFunc(character, ascSorting))
       .Select(character => character.Id);
 
@@ -65,6 +66,7 @@
     ToggleSelectedColumn(1);
 
     var characters = StorageService.Characters
+      .Where(character => !character.IsEmpty)
       .OrderBy(character => character.Name);
     StorageService.SortedCharacterIds = (ascSorting ? characters : characters.Reverse()).Select(character => character.Id);
 

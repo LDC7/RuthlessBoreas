@@ -20,7 +20,14 @@
 
     public static async Task<T> GetRequest<T>(string url) where T : class
     {
-      return await Http.GetFromJsonAsync<T>(url);
+      try
+      {
+        return await Http.GetFromJsonAsync<T>(url);
+      }
+      catch
+      {
+        return null;
+      }
     }
 
     public static async Task LoadInitializeData()
